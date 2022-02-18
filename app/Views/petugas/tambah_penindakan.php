@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="noBap"> No Bap :</label>
-                                            <input type="text" name="noBap" id="noBap" class="form-control" value="0<?= $noBap["noBap"] ?>" readonly>
+                                            <input type="text" name="noBap" id="noBap" class="form-control" value="<?= $noBap["noBap"] ?>" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label for="penindakan_id" class="col-form-label">Jenis Penindakan : </label>
@@ -79,7 +79,7 @@
                                             <select name="pasal_pelanggaran_id" style="width: 100%;" id="pasal_pelanggaran_id" class="form-control">
                                                 <option value=""> -- Silahkan Pilih -- </option>
                                                 <?php foreach ($pasal_pelanggaran as $pasal_pelanggaran) : ?>
-                                                    <option value="<?= $pasal_pelanggaran["id"] ?>"><?= $pasal_pelanggaran["pasal_pelanggaran"]?> - <?= $pasal_pelanggaran["keterangan"] ?> </option>
+                                                    <option value="<?= $pasal_pelanggaran["id"] ?>"><?= $pasal_pelanggaran["pasal_pelanggaran"] ?> - <?= $pasal_pelanggaran["keterangan"] ?> </option>
                                                 <?php endforeach; ?>
                                             </select>
                                             <small class=" text-danger" id="errorPasal"></small>

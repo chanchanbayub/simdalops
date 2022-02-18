@@ -40,7 +40,7 @@
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>No Bap</b> <a class="float-right">0<?= $laporan_penindakan["noBap"] ?></a>
+                                        <b>No Bap</b> <a class="float-right"><?= $laporan_penindakan["noBap"] ?></a>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Jenis Penindakan</b> <a class="float-right"><?= $laporan_penindakan["nama_penindakan"] ?></a>

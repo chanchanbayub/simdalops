@@ -128,7 +128,7 @@
                         table += `<tr> 
                             <td> ${no++} . </td>
                             <td>  </td>
-                            <td>0${e.noBap} </td>
+                            <td>${e.noBap} </td>
                             <td> ${e.tanggal_penindakan} </td>
                             <td> ${e.type_kendaraan} </td>
                             <td> ${(e.nama_pelanggar == null) ? "" : e.nama_pelanggar } </td>

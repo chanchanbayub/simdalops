@@ -113,7 +113,7 @@
                                                 <td><?= $laporanPenindakan["ukpd"] ?></td>
                                                 <td><?= $laporanPenindakan["unit_penindak"] ?></td>
                                                 <td><?= $laporanPenindakan["nama_penindakan"] ?></td>
-                                                <td>0<?= $laporanPenindakan["noBap"] ?></td>
+                                                <td><?= $laporanPenindakan["noBap"] ?></td>
                                                 <td><?= $laporanPenindakan["nopol"] ?></td>
                                                 <td><?= $laporanPenindakan["status_bap"] ?></td>
                                                 <td><?= date('d M Y', strtotime($laporanPenindakan["tanggal_penindakan"])) ?></td>
@@ -458,7 +458,7 @@
             success: function(response) {
                 $("#id").val(response.id);
                 $("#unit_id").val(response.unit_penindak);
-                $("#bap_id").val(0 + response.noBap);
+                $("#bap_id").val(response.noBap);
                 $("#tgl_penindakan").val(response.tanggal_penindakan);
                 $("#jam_penindakan").val(response.jam_penindakan);
                 $("#id_bap").val(response.bap_id);
@@ -545,12 +545,12 @@
             },
             beforeSend: function(e) {
                 $('.save').html('<i class="fas fa-spinner fa-pulse"> </i> ');
-                $('.save').attr('disabled','disabled');
+                $('.save').attr('disabled', 'disabled');
             },
             success: function(response) {
 
                 $(".save").html('<i class="fa fa-check"> </i> Simpan');
-                $('.save').removeAttr('disabled','disabled');
+                $('.save').removeAttr('disabled', 'disabled');
                 if (response.error) {
 
                     if (response.error.penindakan_id) {

@@ -109,11 +109,19 @@ class BapController extends BaseController
                 $noBapAkhir = $this->request->getVar('noBapAkhir');
                 $unit_id = $this->request->getVar('unit_id');
                 $nama_petugas = $this->request->getVar('nama_petugas');
-
-                for ($i = $noAwal; $i <= $noBapAkhir; $i++) {
+                for ($i = intval($noAwal); $i <= intval($noBapAkhir); $i++) {
+                    if (strlen($i) == 1) {
+                        $noBap = "0000" . $i;
+                    } else if (strlen($i) == 2) {
+                        $noBap = "000" . $i;
+                    } else if (strlen($i) == 3) {
+                        $noBap = "00" . $i;
+                    } else if (strlen($i) == 4) {
+                        $noBap = "0" . $i;
+                    }
                     $this->bapModel->save([
                         'jenis_bap_id' => $jenis_bap_id,
-                        'noBap' => $i,
+                        'noBap' => $noBap,
                         'unit_id' => $unit_id,
                         'nama_petugas' => ucwords($nama_petugas),
                         'status_id' => 1

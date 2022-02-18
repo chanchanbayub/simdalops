@@ -61,7 +61,7 @@
                                     foreach ($noBap as $noBap) : ?>
                                         <tr>
                                             <td><?= $no++ ?>.</td>
-                                            <td>0<?= $noBap["noBap"]; ?></td>
+                                            <td><?= $noBap["noBap"]; ?></td>
                                             <td><?= $noBap["unit_penindak"]; ?></td>
                                             <td><?= $noBap["nama_petugas"]; ?></td>
                                             <td><?= $noBap["jenis_bap"]; ?></td>
@@ -240,7 +240,7 @@
                 nama_petugas: nama_petugas,
                 jenis_bap_id: jenis_bap_id
             },
-             beforeSend: function() {
+            beforeSend: function() {
                 $(".tambah").html('<i class="fas fa-cog fa-spin"></i>');
                 $(".tambah").attr('disabled', 'disabled');
             },

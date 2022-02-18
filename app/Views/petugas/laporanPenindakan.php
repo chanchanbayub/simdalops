@@ -63,7 +63,7 @@
                                     foreach ($laporan_penindakan as $laporan_penindakan) : ?>
                                         <tr>
                                             <td style="vertical-align: middle;"><?= $no++ ?>.</td>
-                                            <td style=" vertical-align: middle;">0<?= $laporan_penindakan["noBap"] ?></td>
+                                            <td style=" vertical-align: middle;"><?= $laporan_penindakan["noBap"] ?></td>
                                             <td style=" vertical-align: middle;"><?= $laporan_penindakan["nama_penindakan"] ?></td>
                                             <td style="vertical-align: middle;"><?= $laporan_penindakan["unit_penindak"] ?></td>
                                             <td style="vertical-align: middle;"><?= $laporan_penindakan["nopol"] ?></td>

@@ -61,7 +61,7 @@
                                         <tr>
                                             <td style="vertical-align: middle;"><?= $no++ ?>.</td>
                                             <td style="vertical-align: middle;"><?= $data["unit_penindak"] ?></td>
-                                            <td style="vertical-align: middle;"> <a href="/petugas/tambah_penindakan/<?= $data["noBap"] ?>">0<?= $data["noBap"] ?></a> </td>
+                                            <td style="vertical-align: middle;"> <a href="/petugas/tambah_penindakan/<?= $data["noBap"] ?>"><?= $data["noBap"] ?></a> </td>
                                             <td style="vertical-align: middle;"><?= $data["nopol"] ?></td>
                                             <td style="vertical-align: middle;"><?= $data["nama_petugas"] ?></td>
                                             <td style="vertical-align: middle;"><?= $data["tanggal_penindakan"] ?></td>
