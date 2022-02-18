@@ -2,7 +2,7 @@
 <?= $this->section("content"); ?>
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>E-Tilang</b> <br> <span> Dinas Perhubungan </span></a>
+        <a href="#"><b>Simdalops</b> <br> <span> Dinas Perhubungan </span></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
