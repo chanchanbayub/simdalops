@@ -209,7 +209,7 @@
                     </div>
                     <div class="form-group">
                         <label for="tanggal_penindakan">Tanggal Penindakan :</label>
-                        <input type="date" name="tanggal_penindakan" id="tgl_penindakan" class="form-control" disabled>
+                        <input type="date" name="tanggal_penindakan" id="tgl_penindakan" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="tanggal_sidang">Tanggal Sidang :</label>
@@ -499,6 +499,7 @@
         let penindakan_id = $("#penindakan_id").val();
         let klasifikasi_id = $("#klasifikasi_id").val();
         let type_kendaraan_id = $("#type_kendaraan_id").val();
+        let tanggal_penindakan = $("#tgl_penindakan").val();
         let tanggal_sidang = $("#tanggal_sidang").val();
         let lokasi_sidang_id = $("#lokasi_sidang_id").val();
         let nopol = $("#nopol").val();
@@ -526,6 +527,7 @@
                 penindakan_id: penindakan_id,
                 klasifikasi_id: klasifikasi_id,
                 type_kendaraan_id: type_kendaraan_id,
+                tanggal_penindakan: tanggal_penindakan,
                 tanggal_sidang: tanggal_sidang,
                 lokasi_sidang_id: lokasi_sidang_id,
                 nopol: nopol,

@@ -3,7 +3,7 @@
 <?= $this->section("content"); ?>
 <div class="register-box">
     <div class="login-logo">
-        <p href="#"><b>E-Tilang</b> <br> <span> Dinas Perhubungan </span></p>
+        <p href="#"><b>Simdalops</b> <br> <span> Dinas Perhubungan </span></p>
     </div>
 
     <div class="card">

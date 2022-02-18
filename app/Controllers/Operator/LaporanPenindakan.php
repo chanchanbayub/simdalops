@@ -227,6 +227,7 @@ class LaporanPenindakan extends BaseController
                 $penindakan_id = $this->request->getVar('penindakan_id');
                 $klasifikasi_id = $this->request->getVar('klasifikasi_id');
                 $kendaraan_id = $this->request->getVar('type_kendaraan_id');
+                $tanggal_penindakan = $this->request->getVar('tanggal_penindakan');
                 $tanggal_sidang = $this->request->getVar('tanggal_sidang');
                 $lokasi_sidang_id = $this->request->getVar('lokasi_sidang_id');
                 $nopol = $this->request->getVar('nopol');
@@ -253,6 +254,7 @@ class LaporanPenindakan extends BaseController
                     'penindakan_id' => $penindakan_id,
                     'klasifikasi_id' => $klasifikasi_id,
                     'kendaraan_id' => $kendaraan_id,
+                    'tanggal_penindakan' => $tanggal_penindakan,
                     'tanggal_sidang' => $tanggal_sidang,
                     'lokasi_sidang_id' => ucwords($lokasi_sidang_id),
                     'tanggal_masuk_bap' => date('Y-m-d'),

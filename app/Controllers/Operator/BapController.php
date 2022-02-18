@@ -218,25 +218,23 @@ class BapController extends BaseController
             $data = $this->bapModel->where(["id" => $id])->first();
 
             $dataPenindakan = $this->laporanPenindakanModel->where(["bap_id" => $data["id"]])->first();
-
-            $pengandangan = $this->pengandanganModel->where(["laporan_penindakan_id" => $dataPenindakan["id"]])->first();
-
-            if ($pengandangan != null) {
-                if ($pengandangan["foto_kendaraan_masuk"] != null) {
-                    $fotoKendaraanMasuk = 'kendaraan/' . $pengandangan["foto_kendaraan_masuk"];
-                    if (file_exists($fotoKendaraanMasuk)) {
-                        unlink($fotoKendaraanMasuk);
+            if (!empty($dataPenindakan)) {
+                $pengandangan = $this->pengandanganModel->where(["laporan_penindakan_id" => $dataPenindakan["id"]])->first();
+                if ($pengandangan != null) {
+                    if ($pengandangan["foto_kendaraan_masuk"] != null) {
+                        $fotoKendaraanMasuk = 'kendaraan/' . $pengandangan["foto_kendaraan_masuk"];
+                        if (file_exists($fotoKendaraanMasuk)) {
+                            unlink($fotoKendaraanMasuk);
+                        }
+                    }
+                    if ($pengandangan["foto_kendaraan_keluar"] != null) {
+                        $fotoKendaraanKeluar = 'kendaraan/' . $pengandangan["foto_kendaraan_keluar"];
+                        if (file_exists($fotoKendaraanKeluar)) {
+                            unlink($fotoKendaraanKeluar);
+                        }
                     }
                 }
-                if ($pengandangan["foto_kendaraan_keluar"] != null) {
-                    $fotoKendaraanKeluar = 'kendaraan/' . $pengandangan["foto_kendaraan_keluar"];
-                    if (file_exists($fotoKendaraanKeluar)) {
-                        unlink($fotoKendaraanKeluar);
-                    }
-                }
-            }
 
-            if ($dataPenindakan != null) {
                 if ($dataPenindakan["foto"] != null) {
                     $foto_penindakan = 'foto-penindakan/' . $dataPenindakan["foto"];
                     if (file_exists($foto_penindakan)) {

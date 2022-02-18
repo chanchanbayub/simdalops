@@ -35,7 +35,7 @@ class AuthController extends BaseController
         session_destroy();
         // dd(session('role_management'));
         $data = [
-            'title' => 'E-Tilang Dinas Perhubungan | Login'
+            'title' => 'Simdalops Dinas Perhubungan | Login'
         ];
         return view("auth/login", $data);
     }
@@ -43,7 +43,7 @@ class AuthController extends BaseController
     public function register()
     {
         $data = [
-            'title' => 'E-Tilang Dinas Perhubungan | Register',
+            'title' => 'Simdalops Dinas Perhubungan | Register',
             'ukpd' => $this->ukpdModel->findAll(),
             'role' => $this->roleManagementModel->findAll()
         ];
