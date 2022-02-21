@@ -84,6 +84,7 @@
                             </div>
                             <input type="hidden" name="download" id="download" value="<?= $tanggal_filter ?>">
                             <a href="/exportExcel/<?= $tanggal_filter ?>" class="btn btn-outline-secondary btn-xs export"><i class="fa fa-file-excel"></i>Export Excel</a>
+                            <a href="#" class="btn btn-outline-secondary btn-xs"><i class="fa fa-plus"></i>Tambah Data Penindakan</a>
                             <br><br>
                             <table id="example2" class="table table-responsive table-bordered table-hover">
                                 <thead>
