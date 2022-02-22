@@ -169,10 +169,13 @@ $routes->post('/operator/delete/noBap', 'Operator\BapController::delete');
 
 // laporan penindakan
 $routes->get('/operator/laporan_penindakan', 'Operator\LaporanPenindakan::index');
+$routes->post('/operator/laporan_penindakan/getBap', 'Operator\LaporanPenindakan::getBap');
 $routes->post('/operator/laporan_penindakan/getPool', 'Operator\LaporanPenindakan::getPool');
 $routes->post('/operator/laporan_penindakan/getTypeKendaraan', 'Operator\LaporanPenindakan::getTypeKendaraan');
 $routes->post('/operator/laporan_penindakan/edit', 'Operator\LaporanPenindakan::Edit');
 $routes->post('/operator/laporan_penindakan/save', 'Operator\LaporanPenindakan::Save');
+$routes->get('/operator/laporan_penindakan/tambah_penindakan', 'Operator\LaporanPenindakan::tambah_penindakan');
+$routes->post('/operator/laporan_penindakan/add', 'Operator\LaporanPenindakan::add');
 $routes->post('/operator/laporan_penindakan/delete', 'Operator\LaporanPenindakan::Delete');
 $routes->get('/operator/laporan_penindakan/detail_data/(:any)', 'Operator\LaporanPenindakan::detail_data/$1');
 $routes->get('/operator/laporan_penindakan/download/(:any)', 'Operator\LaporanPenindakan::download/$1');
