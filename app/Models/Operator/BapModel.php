@@ -50,4 +50,14 @@ class BapModel extends Model
             'noBap' => $this
         ];
     }
+
+    public function getBapKeluar($unit, $status_id)
+    {
+        return $this->table($this->table)
+            ->select($this->fieldTable)
+            ->join('unit_penindak', 'unit_penindak.id = bap.unit_id')
+            ->where(["unit_penindak" => $unit])
+            ->where(["status_id" => $status_id])
+            ->countAllResults();
+    }
 }
