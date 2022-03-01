@@ -197,7 +197,7 @@ class ExcelController extends BaseController
             $spreadSheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $column, $no++)
                 ->setCellValue('B' . $column, $laporan["ukpd"])
-                ->setCellValue('C' . $column, '0' . $laporan["noBap"])
+                ->setCellValue('C' . $column, $laporan["noBap"])
                 ->setCellValue('D' . $column, $laporan["nama_pemilik"])
                 ->setCellValue('E' . $column, $laporan["type_kendaraan"])
                 ->setCellValue('F' . $column, $laporan["tahun_perakitan"])
