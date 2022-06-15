@@ -12,7 +12,7 @@
                         <span class="info-box-icon bg-info"><i class="far fa-copy"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Regu 12.3</span>
+                            <span class="info-box-text">Regu 1.3</span>
                             <span class="info-box-number"><?= $unit_13 ?> Lembar</span>
                         </div>
                         <!-- /.info-box-content -->

@@ -24,13 +24,14 @@ class Dashboard extends BaseController
     public function index()
     {
         $now = date('Y-m-d');
-    // dd(session('unit_id'));
+        // dd(session('unit_id'));
         $data = [
             'title' => 'Dashboard Penindakan',
             'totalBap' => $this->bapModel->totalBAP(session('unit_id')),
             'totalBapKeluar' => $this->bapModel->totalBapKeluar(session('unit_id')),
             'totalBapAktif' => $this->bapModel->totalBapAktif(session('unit_id')),
             'totalBapMasuk' => $this->bapModel->totalBapMasuk(session('unit_id')),
+            'totalBapRusak' => $this->bapModel->totalBapRusak(session('unit_id')),
             'jumlahPenindakan' => $this->laporanPenindakanModel->totalPerRegu(session('unit_id'), $now),
 
         ];

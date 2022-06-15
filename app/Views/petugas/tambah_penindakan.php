@@ -389,7 +389,7 @@
                         icon: 'success',
                         title: `${response.success}`
                     });
-                    setInterval(function() {
+                    setTimeout(function() {
                         location.href = '/petugas/bap';
                     }, 1000);
                     // console.log(response);

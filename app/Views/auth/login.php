@@ -112,9 +112,9 @@
                         icon: `${response.icon}`,
                         title: `${response.success}`
                     });
-                    setInterval(function() {
+                    setTimeout(function() {
                         location.href = `${response.url}`;
-                    }, 500);
+                    }, 1000);
                 } else if (response.errors) {
                     Swal.fire({
                         icon: `${response.icon}`,

@@ -57,6 +57,16 @@ class BapModel extends Model
             ->countAllResults();
     }
 
+    public function totalBapRusak($id)
+    {
+        return $this->table($this->table)
+            ->select($this->fieldTable)
+            ->where(["unit_id" => $id])
+            ->where(["status_id" => 7])
+            // ->orWhere(["status_id" => 4])
+            ->countAllResults();
+    }
+
     public function getDataBap($unit_id)
     {
         $this->table($this->table)

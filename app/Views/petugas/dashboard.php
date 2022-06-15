@@ -29,7 +29,7 @@
                 <!-- /.col -->
             </div>
             <!-- /.row -->
-            <h5 class="mt-4 mb-2"> Jumlah BAP </h5>
+            <h5 class="mt-3 mb-2"> Jumlah BAP </h5>
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box bg-info">
@@ -100,8 +100,28 @@
                     <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box bg-danger">
+                        <span class="info-box-icon"><i class="fa fa-hdd"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Rusak</span>
+                            <span class="info-box-number"><?= $totalBapRusak ?> Lembar</span>
+
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
             </div>
+
             <!-- /.row -->
+
+            <!-- /.col -->
 
 
         </div>
