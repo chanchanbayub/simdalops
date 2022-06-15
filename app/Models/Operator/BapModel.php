@@ -34,17 +34,17 @@ class BapModel extends Model
         ];
     }
 
-    public function search($keyword)
+    public function search($keyword, $status)
     {
         $this->table($this->table)
             ->select($this->fieldTable)
             ->join('unit_penindak', 'unit_penindak.id = bap.unit_id')
             ->join('status_bap', 'status_bap.id = bap.status_id')
             ->join('jenis_bap', 'jenis_bap.id = bap.jenis_bap_id')
-            ->like(['noBap' => $keyword])
-            ->orLike(['status_bap' => $keyword])
-            ->orLike(["unit_penindak" => $keyword])
-            ->orLike(["nama_petugas" => $keyword]);
+            ->like(['status_id' => $status])
+            ->like(["unit_penindak" => $keyword])
+            ->orLike(['noBap' => $keyword]);
+
 
         return [
             'noBap' => $this

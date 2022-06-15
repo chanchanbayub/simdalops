@@ -4,6 +4,7 @@ namespace App\Controllers\Operator;
 
 use App\Controllers\BaseController;
 use App\Models\Admin\JenisBapModel;
+use App\Models\Admin\StatusBapModel;
 use App\Models\Admin\UnitPenindakModel;
 use App\Models\Operator\BapModel;
 use App\Models\Operator\LaporanPenindakanModel;
@@ -17,6 +18,7 @@ class BapController extends BaseController
     protected $jenisBapModel;
     protected $laporanPenindakanModel;
     protected $pengandanganModel;
+    protected $statusBapModel;
 
     public function __construct()
     {
@@ -26,6 +28,7 @@ class BapController extends BaseController
         $this->jenisBapModel = new JenisBapModel();
         $this->laporanPenindakanModel = new LaporanPenindakanModel();
         $this->pengandanganModel = new PengandanganModel();
+        $this->statusBapModel = new StatusBapModel();
     }
 
     public function index()
@@ -33,12 +36,17 @@ class BapController extends BaseController
         $currentPage = $this->request->getVar('page_bap') ? $this->request->getVar('page_bap') : 1;
 
         $keyword = $this->request->getVar('keyword');
+        $status = $this->request->getVar('status_bap');
+        // dd($status);
 
-        if ($keyword) {
-            $noBap = $this->bapModel->search($keyword);
+        if ($keyword != null && $status != null) {
+            $noBap = $this->bapModel->search($keyword, $status);
+            // dd($noBap["noBap"]->get()->getResultArray());
         } else {
             $noBap = $this->bapModel->getNoBap();
         }
+
+
 
         $data = [
             'title' => 'Berita Acara Penindakan',
@@ -46,7 +54,8 @@ class BapController extends BaseController
             'pager' => $noBap["noBap"]->pager,
             'currentPage' => $currentPage,
             'unitPenindak' => $this->unitPenindakanModel->where(["ukpd_id" => session('ukpd_id')])->findAll(),
-            'jenis_bap' => $this->jenisBapModel->findAll()
+            'jenis_bap' => $this->jenisBapModel->findAll(),
+            'statusBap' => $this->statusBapModel->findAll()
         ];
 
         return view('operator/bap', $data);

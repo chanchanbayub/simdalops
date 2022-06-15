@@ -30,11 +30,20 @@
                         <!-- /.card-header -->
                         <div class="card-body" style="overflow: auto;">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <form method="get" id="search">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" style="text-transform: uppercase;" name="keyword" id="keyword" placeholder="Masukan Keyword Pencarian" autocomplete="off" autofocus>
-                                            <button class="btn btn-outline-primary " type="Submit" id="button-addon2"> <i class="fa fa-search"></i> </button>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" style="text-transform: uppercase;" name="keyword" id="keyword" placeholder="keyword.." autocomplete="off" autofocus>
+                                            <br>
+                                            <div class="input-group">
+                                                <select name="status_bap" id="status_bap" class="form-control" required>
+                                                    <option value="">Status BAP</option>
+                                                    <?php foreach ($statusBap as $status) : ?>
+                                                        <option value="<?= $status["id"] ?>"><?= $status["status_bap"] ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <button type="submit" class="btn btn-outline-secondary btn-sm"><i class="fa fa-search"> Cari BAP</i></button>
+                                            </div>
                                     </form>
                                 </div>
                             </div>
@@ -198,6 +207,9 @@
         $("#jenis_bap_id").select2({
             theme: 'bootstrap4'
         });
+        $("#status_bap").select2({
+            theme: 'bootstrap4'
+        });
     })
 
     $("#modal-save").click(function(e) {
@@ -288,9 +300,9 @@
                         icon: 'success',
                         title: `${response.success}`
                     });
-                    setInterval(() => {
+                    setTimeout(() => {
                         location.reload();
-                    }, 1000);
+                    }, 500);
                 }
             }
         });
@@ -385,9 +397,9 @@
                         icon: 'success',
                         title: `${response.success}`
                     });
-                    setInterval(() => {
+                    setTimeout(() => {
                         location.reload();
-                    }, 1000)
+                    }, 500)
                 }
             }
         });
@@ -425,9 +437,9 @@
                     icon: 'success',
                     title: `${response.success}`
                 });
-                setInterval(() => {
+                setTimeout(() => {
                     location.reload();
-                }, 1500)
+                }, 500)
             }
         });
     });
