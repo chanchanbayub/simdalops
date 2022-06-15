@@ -122,7 +122,7 @@ class UsersManagement extends BaseController
             $role_id = $this->request->getPost('role_id');
             $username = $this->request->getPost('username');
             $noHp = $this->request->getPost('noHp');
-            $password = password_hash($this->request->getPost('status'), PASSWORD_DEFAULT);
+            $password = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
 
             $this->usersManagementModel->update($id, [
                 'id' => $id,

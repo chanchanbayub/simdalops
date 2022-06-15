@@ -369,7 +369,7 @@
                 password: password,
             },
             beforeSend: function(e) {
-                $(".save").html('<i class="fas fa-spinner fa-pulse"> </i>');
+                $(".update").html('<i class="fas fa-spinner fa-pulse"> </i>');
             },
             success: function(response) {
                 // $(this).html('<i class="fa fa-check">');
@@ -377,7 +377,7 @@
                     title: `${response.success}`,
                     icon: 'success',
                 })
-                setInterval(() => {
+                setTimeout(() => {
                     document.location.reload()
                 }, 700);
             }
