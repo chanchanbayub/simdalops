@@ -123,7 +123,8 @@
                                         </div>
                                         <div class=" form-group">
                                             <label for="foto" class="col-form-label">Foto : </label>
-                                            <input type="file" style="text-transform: capitalize;" class="form-control" id="foto" name="foto" capture="camera" accept="image/*">
+                                            <!-- <input type="file" style="text-transform: capitalize;" class="form-control" id="foto" name="foto" capture="camera" accept="image/*"> -->
+                                            <input type="file" style="text-transform: capitalize;" class="form-control" id="foto" name="foto" accept="image/*">
                                             <small id="errorFoto" class="text-danger"></small>
                                         </div>
                                     </div>

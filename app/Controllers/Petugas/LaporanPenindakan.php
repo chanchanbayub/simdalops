@@ -195,10 +195,10 @@ class LaporanPenindakan extends BaseController
                 $alamat_pelanggar = $this->request->getVar('alamat_pelanggar');
                 $foto = $this->request->getFile('foto');
                 // return json_encode($foto);
-             
-              $namaFoto = $foto->getRandomName();
-            
-            $foto->move('foto-penindakan/', $namaFoto);
+
+                $namaFoto = $foto->getRandomName();
+
+                $foto->move('foto-penindakan/', $namaFoto);
 
                 $this->laporanPenindakanModel->save([
                     'ukpd_id' => $ukpd_id,

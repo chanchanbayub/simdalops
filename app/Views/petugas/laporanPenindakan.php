@@ -59,6 +59,7 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1 + (5 * ($currentPage - 1));
+
                                 if (count($laporan_penindakan) > 0) :
                                     foreach ($laporan_penindakan as $laporan_penindakan) : ?>
                                         <tr>
@@ -71,7 +72,7 @@
                                             <td style="vertical-align: middle;">Jl <?= $laporan_penindakan["lokasi_pelanggaran"] ?></td>
                                             <td style="vertical-align: middle;"><?= date('d F Y', strtotime($laporan_penindakan["tanggal_penindakan"])) ?></td>
                                             <td style="vertical-align: middle;"><?= $laporan_penindakan["nama_terminal"] ?></td>
-                                            <td style="vertical-align: middle; text-align:center"> <img src=" /foto-penindakan/<?= $laporan_penindakan["foto"] ?>" width="80px" alt=""> </td>
+                                            <td style="vertical-align: middle; text-align:center"> <img src="/foto-penindakan/<?= $laporan_penindakan["foto"] ?>" width="80px" alt=""> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else : ?>
