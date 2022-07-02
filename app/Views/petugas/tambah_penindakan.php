@@ -154,21 +154,30 @@
 </div>
 <!-- /.content -->
 
-<div class="modal" id="syarat-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="syarat-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Syarat Dan Ketentuan Berlaku </h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Syarat & Ketentuan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Dengan Ini Menyatakan Bahwa Data Tersebut Benar,</p>
+                <h3 style="text-align:center ;">Disclamer</h3>
+                <hr>
+                <p style="text-align: justify;">Simdalops tidak bertanggung jawab atas segala kesalahan data yang kendaraan diinputkan. Maka dengan ini saya menyatakan bahwa data kendaraan tersebut benar dan terbukti melakukan pelanggaran sesuai undang undang yang berlaku, dan apabila suatu saat nanti terdapat kekeliruan data, maka simdalops tidak bertanggung jawab terhadap kekeliruan data tersebut. </p>
+                <hr>
+                <h3 style="text-align:center ;">Kebijakan & Privasi</h3>
+                <hr>
+                <p style="text-align: justify;">Kami berkomitmen untuk menjaga keamanan dan kerahasiaan data pribadi yang diberikan Pengguna saat mengakses dan menggunakan Platform (“Data Pribadi”). Dalam hal ini, Data Pribadi diberikan oleh Pengguna secara sadar dan tanpa adanya tekanan atau paksaan dari pihak manapun, serta ikut bertanggung jawab penuh dalam menjaga kerahasiaan Data Pribadi tersebut. <br>
+                    Simdalops dengan ini menyatakan bahwa Anda telah membaca dan memahami secara penuh konten dan sebab-akibat dari Kebijakan Privasi kami, dan Anda tidak dapat secara paksa mencabut kembali persetujuan Anda yang telah terikat dengan ketentuan-ketentuan dari Kebijakan Privasi kami.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Simpan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary send">Setujui</button>
             </div>
         </div>
     </div>
@@ -203,13 +212,6 @@
             theme: 'bootstrap4'
         });
     });
-
-    // $('.save').click(function(e) {
-    //     e.preventDefault()
-    //     $("#syarat-modal").modal({
-    //         show: true
-    //     });
-    // })
 
     $("#penindakan_id").change(function(e) {
         let id = $(this).val();
@@ -264,10 +266,8 @@
         });
     });
 
-
     $("#tambah_penindakan").submit(function(e) {
         e.preventDefault();
-        $("#syarat-modal").modal('show');
         let ukpd_id = <?= session('ukpd_id') ?>;
         let penindakan_id = $("#penindakan_id").val();
         let klasifikasi_id = $("#klasifikasi_id").val();
@@ -300,6 +300,18 @@
         formData.append('alamat_pelanggar', alamat_pelanggar);
         formData.append('foto', foto);
 
+        $("#syarat-modal").modal('show');
+
+        $("#syarat-modal").on('click', '.send', function(e) {
+            e.preventDefault();
+            send(formData);
+        })
+
+    });
+
+    function send(formData) {
+        // console.log(formData);
+        $("#syarat-modal").modal('hide');
         $.ajax({
             url: '/petugas/laporanPenindakan/save',
             data: formData,
@@ -407,7 +419,6 @@
             }
 
         })
-
-    });
+    }
 </script>
 <?= $this->endSection(); ?>

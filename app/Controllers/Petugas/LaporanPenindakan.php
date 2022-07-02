@@ -158,7 +158,7 @@ class LaporanPenindakan extends BaseController
                 'foto' => [
                     'rules' => 'uploaded[foto]|is_image[foto]|max_size[foto,5000]',
                     'errors' => [
-                        'uploaded' => 'Foto Penindakan Tidak Boleh Kosong!',
+                        'uploaded' => 'Foto Kendaraan Tidak Boleh Kosong!',
                         'max_size' => 'Ukuran Foto Tidak Boleh Lebih dari 5mb!',
                         'is_image' => 'Yang Anda Upload Bukan Foto!',
                     ],
