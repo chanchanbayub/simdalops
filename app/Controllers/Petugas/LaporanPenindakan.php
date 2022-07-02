@@ -5,11 +5,14 @@ namespace App\Controllers\Petugas;
 use App\Controllers\Admin\PoolPenyimpanan;
 use App\Controllers\BaseController;
 use App\Models\Admin\JenisPelanggaranModel;
+use App\Models\Admin\Kecamatan;
 use App\Models\Admin\KendaraanModel;
+use App\Models\Admin\Kota;
 use App\Models\Admin\LokasiSidangModel;
 use App\Models\Admin\PasalPelanggaranModel;
 use App\Models\Admin\PenindakanModel;
 use App\Models\Admin\PoolPenyimpananModel;
+use App\Models\Admin\Provinsi;
 use App\Models\Admin\TypeKendaraanModel;
 use App\Models\Petugas\BapModel;
 use App\Models\Petugas\LaporanPenindakanModel;
@@ -17,6 +20,9 @@ use App\Models\Petugas\LaporanPenindakanModel;
 class LaporanPenindakan extends BaseController
 {
     protected $bapModel;
+    protected $provinsiModel;
+    protected $kotaModel;
+    protected $kecamtanModel;
     protected $validation;
     protected $laporanPenindakanModel;
     protected $pasalPelanggaranModel;
@@ -39,10 +45,15 @@ class LaporanPenindakan extends BaseController
         $this->typeKendaraanModel = new TypeKendaraanModel();
         $this->penindakanModel = new PenindakanModel();
         $this->poolPenyimpananModel = new PoolPenyimpananModel();
+        $this->provinsiModel = new Provinsi();
+        $this->kotaModel = new Kota();
+        $this->kecamatanModel = new Kecamatan();
     }
 
     public function index()
     {
+
+
         $now = date("Y-m-d");
         // dd(session('unit_id'));
 
@@ -82,6 +93,9 @@ class LaporanPenindakan extends BaseController
             'pasal_pelanggaran' => $this->pasalPelanggaranModel->findAll(),
             'lokasi_sidang' => $this->lokasiSidangModel->findAll(),
             'klasifikasi_kendaraan' => $this->klasifikasiKendaraanModel->findAll(),
+            'provinsi' => $this->provinsiModel->findAll(),
+            'kota' => $this->kotaModel->findAll(),
+            'kecamatan' => $this->kecamatanModel->findAll(),
         ];
 
         if ($dataBap == null) {
@@ -253,6 +267,29 @@ class LaporanPenindakan extends BaseController
             $typeKendaraan = $this->typeKendaraanModel->where(["klasifikasi_id" => $id])->findAll();
 
             return json_encode($typeKendaraan);
+        }
+    }
+
+    public function getKota()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+
+            $kota_id = $this->kotaModel->where(["province_id" => $id])->findAll();
+
+            return json_encode($kota_id);
+        }
+    }
+
+    public function getKecamatan()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+
+
+            $kecamatan_id = $this->kecamatanModel->where(["regency_id" => $id])->findAll();
+
+            return json_encode($kecamatan_id);
         }
     }
 }

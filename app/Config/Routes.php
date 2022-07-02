@@ -143,6 +143,9 @@ $routes->post('/petugas/laporanPenindakan/getPoolPenyimpanan', 'Petugas\LaporanP
 $routes->post('/petugas/laporanPenindakan/getTypeKendaraan', 'Petugas\LaporanPenindakan::getTypeKendaraan');
 $routes->post('/petugas/laporanPenindakan/save', 'Petugas\LaporanPenindakan::save');
 
+// kota
+$routes->post('/petugas/laporanPenindakan/getKota', 'Petugas\LaporanPenindakan::getKota');
+$routes->post('/petugas/laporanPenindakan/getKecamatan', 'Petugas\LaporanPenindakan::getKecamatan');
 // operator
 $routes->get('/operator/dashboard/', 'Operator\Dashboard::index');
 // surat pengeluaran

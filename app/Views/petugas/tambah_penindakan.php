@@ -85,6 +85,33 @@
                                             <small class=" text-danger" id="errorPasal"></small>
                                         </div>
                                         <div class="form-group">
+                                            <label for="provinci_name">Lokasi Pelanggaran (Provinsi) :</label>
+                                            <select name="province_id" style="width: 100%;" id="provinci_name" class="form-control">
+                                                <option value=""> -- Silahkan Pilih -- </option>
+                                                <?php foreach ($provinsi as $provinsi) : ?>
+                                                    <option value="<?= $provinsi["id"] ?>"> <?= $provinsi["name"] ?> </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kota_name">Lokasi Pelanggaran (Kota) :</label>
+                                            <select name="regency_id" style="width: 100%;" id="kota_name" class="form-control" disabled>
+                                                <option value=""> -- Silahkan Pilih -- </option>
+                                                <?php foreach ($kota as $kota) : ?>
+                                                    <option value="<?= $kota["id"] ?>"> <?= $kota["name"] ?> </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kecamatan_name">Lokasi Pelanggaran (Kecamatan) :</label>
+                                            <select name="kecamatan_id" style="width: 100%;" id="kecamatan_name" class="form-control" disabled>
+                                                <option value=""> -- Silahkan Pilih -- </option>
+                                                <?php foreach ($kecamatan as $kecamatan) : ?>
+                                                    <option value="<?= $kecamatan["id"] ?>"> <?= $kecamatan["name"] ?> </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="lokasi_pelanggaran">Lokasi Pelanggaran :</label>
                                             <input type="text" name="lokasi_pelanggaran" id="lokasi_pelanggaran" class="form-control" placeholder="Masukan Lokasi Pelanggaran" style="text-transform: capitalize;">
                                             <small class="text-danger" id="errorLokasi"> </small>
@@ -211,6 +238,15 @@
         $("#kendaraan_id").select2({
             theme: 'bootstrap4'
         });
+        $("#provinci_name").select2({
+            theme: 'bootstrap4'
+        });
+        $("#kota_name").select2({
+            theme: 'bootstrap4'
+        });
+        $("#kecamatan_name").select2({
+            theme: 'bootstrap4'
+        });
     });
 
     $("#penindakan_id").change(function(e) {
@@ -238,7 +274,62 @@
         });
     });
 
+    $("#provinci_name").change(function(e) {
+        let id = $(this).val();
+        // console.log(id);
+        $.ajax({
+            url: '/petugas/laporanPenindakan/getKota',
+            dataType: 'json',
+            data: {
+                id: id
+            },
+            type: 'post',
+            success: function(response) {
+                // console.log(response)
+                let kota = '<option value=""> -- Silahkan Pilih -- </option>';
+                if (response.length > 0) {
+                    $("#kota_name").removeAttr('disabled', 'disabled');
+                    response.forEach((e) => {
+                        kota += `<option value="${e.id}"> ${e.name} </option>`;
+                    });
+                    $("#kota_name").html(kota);
+                } else {
+                    $("#kota_name").attr('disabled', 'disabled');
+                    kota += '<option value=""> -- Silahkan Pilih -- </option>';
+                }
+                $("#kota_name").html(kota);
+            }
+        });
+    });
 
+    $("#kota_name").change(function(e) {
+        let id = $(this).val();
+
+        // console.log(id);
+        $.ajax({
+            url: '/petugas/laporanPenindakan/getKecamatan',
+            dataType: 'json',
+            data: {
+                id: id
+            },
+            type: 'post',
+            success: function(response) {
+                // console.log(response)
+                let kecamatan = '<option value=""> -- Silahkan Pilih -- </option>';
+                if (response.length > 0) {
+                    $("#kecamatan_name").removeAttr('disabled', 'disabled');
+                    response.forEach((e) => {
+                        kecamatan += `<option value="${e.id}"> ${e.name} </option>`;
+                    });
+                    $("#kecamatan_name").html(kecamatan);
+                } else {
+                    $("#kecamatan_name").attr('disabled', 'disabled');
+                    kecamatan += '<option value=""> -- Silahkan Pilih -- </option>';
+                }
+                $("#kecamatan_name").html(kecamatan);
+            }
+        });
+    });
 
     $("#klasifikasi_id").change(function(e) {
         let id = $(this).val();
