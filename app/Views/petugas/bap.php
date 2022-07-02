@@ -44,7 +44,7 @@
                                 <tr align="center">
                                     <th>No </th>
                                     <th>Unit Penindak</th>
-                                    <th>No Bap</th>
+                                    <th>No BAPC</th>
                                     <th>Nomor Kendaraan</th>
                                     <th>Nama Petugas</th>
                                     <th>Tanggal Penindakan</th>

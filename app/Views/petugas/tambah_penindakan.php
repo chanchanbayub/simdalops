@@ -39,7 +39,7 @@
                                             <input type="text" name="ukpd_id" id="ukpd_id" class="form-control" value="<?= session('ukpd') ?>" readonly>
                                         </div>
                                         <div class="form-group">
-                                            <label for="noBap"> No Bap :</label>
+                                            <label for="noBap"> No BAPC :</label>
                                             <input type="text" name="noBap" id="noBap" class="form-control" value="<?= $noBap["noBap"] ?>" readonly>
                                         </div>
                                         <div class="form-group">
@@ -122,7 +122,7 @@
                                             <small class="text-danger" id="errorAlamatPelanggar"> </small>
                                         </div>
                                         <div class=" form-group">
-                                            <label for="foto" class="col-form-label">Foto : </label>
+                                            <label for="foto" class="col-form-label">Foto Kendaraan Tampak Depan (Terlihat Nomor Kendaraan) : </label>
                                             <!-- <input type="file" style="text-transform: capitalize;" class="form-control" id="foto" name="foto" capture="camera" accept="image/*"> -->
                                             <input type="file" style="text-transform: capitalize;" class="form-control" id="foto" name="foto" accept="image/*">
                                             <small id="errorFoto" class="text-danger"></small>
@@ -154,6 +154,26 @@
 </div>
 <!-- /.content -->
 
+<div class="modal" id="syarat-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Syarat Dan Ketentuan Berlaku </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Dengan Ini Menyatakan Bahwa Data Tersebut Benar,</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <script src="/assets/plugins/jquery/jquery.min.js"></script>
@@ -182,26 +202,14 @@
         $("#kendaraan_id").select2({
             theme: 'bootstrap4'
         });
-
-        // Webcam.set({
-        //     width: 320,
-        //     height: 240,
-        //     image_format: 'jpeg',
-        //     jpeg_quality: 90
-        // });
-        // Webcam.attach('#my_camera');
-
     });
 
-    function take_snapshot() {
-
-        // take snapshot and get image data
-        Webcam.snap(function(data_uri) {
-            // display results in page
-            document.getElementById('my_camera').innerHTML =
-                '<img src="' + data_uri + '"/>';
-        });
-    }
+    // $('.save').click(function(e) {
+    //     e.preventDefault()
+    //     $("#syarat-modal").modal({
+    //         show: true
+    //     });
+    // })
 
     $("#penindakan_id").change(function(e) {
         let id = $(this).val();
@@ -259,6 +267,7 @@
 
     $("#tambah_penindakan").submit(function(e) {
         e.preventDefault();
+        $("#syarat-modal").modal('show');
         let ukpd_id = <?= session('ukpd_id') ?>;
         let penindakan_id = $("#penindakan_id").val();
         let klasifikasi_id = $("#klasifikasi_id").val();

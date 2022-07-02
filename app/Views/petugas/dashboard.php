@@ -29,14 +29,14 @@
                 <!-- /.col -->
             </div>
             <!-- /.row -->
-            <h5 class="mt-3 mb-2"> Jumlah BAP </h5>
+            <h5 class="mt-3 mb-2"> Jumlah BAPC </h5>
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box bg-info">
                         <span class="info-box-icon"><i class="fa fa-hdd"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">BAP Terdaftar</span>
+                            <span class="info-box-text">BAPC Terdaftar</span>
                             <span class="info-box-number"> <?= $totalBap ?> Lembar</span>
 
                             <div class="progress">
@@ -53,7 +53,7 @@
                         <span class="info-box-icon"><i class="fa fa-hdd"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Sisa BAP</span>
+                            <span class="info-box-text">Sisa BAPC</span>
                             <span class="info-box-number"><?= $totalBapKeluar ?> Lembar</span>
 
                             <div class="progress">
