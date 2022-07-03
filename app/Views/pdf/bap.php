@@ -188,7 +188,7 @@
 					<h4>No. BAP/........................... / ............ /JKT/...............</h4>
 				</td>
 				<td rowspan="2">
-					<h4>A.00001</h4>
+					<h4 style="color:red ;"> <b> A.<?= $penindakan["noBap"] ?> </b></h4>
 					<br>
 					<h4>TERDAKWA</h4>
 				</td>
