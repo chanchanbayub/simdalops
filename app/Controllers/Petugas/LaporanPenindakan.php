@@ -407,4 +407,15 @@ class LaporanPenindakan extends BaseController
             return json_encode($messeage);
         }
     }
+
+    public function view($id)
+    {
+        $laporanPenindakan = $this->laporanPenindakanModel->getDataPenindakan($id);
+
+        $data = [
+            'laporan_penindakan' => $laporanPenindakan
+        ];
+
+        return view('petugas/view', $data);
+    }
 }

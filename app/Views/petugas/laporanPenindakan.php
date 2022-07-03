@@ -81,6 +81,9 @@
                                                 <button type="button" class="btn btn-danger btn-xs btn-delete" data-id="<?= $laporan_penindakan["id"] ?>" data-toggle="modal" data-target="#modal-delete">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
+                                                <a href="/bap/<?= $laporan_penindakan["id"] ?>" class="btn btn-primary btn-xs btn-view">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

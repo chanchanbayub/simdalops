@@ -17,7 +17,7 @@ class LaporanPenindakanModel extends Model
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
 
-    protected $fieldTable = 'laporan_penindakan.id,laporan_penindakan.ukpd_id, laporan_penindakan.bap_id, laporan_penindakan.penindakan_id, laporan_penindakan.klasifikasi_id, kendaraan_id, tanggal_penindakan, tanggal_sidang, lokasi_sidang_id, jam_penindakan, nopol, pasal_pelanggaran_id, lokasi_pelanggaran, barang_bukti, pool_id, nama_pelanggar, alamat_pelanggar, warna_tnkb, tahun_perakitan, nomor_rangka, nama_pemilik, alamat_pemilik, foto, bap.noBap, bap.unit_id, unit_penindak.unit_penindak, lokasi_sidang.lokasi_sidang, pasal_pelanggaran.pasal_pelanggaran, jenispenindakan.nama_penindakan, poolpenyimpanan.nama_terminal';
+    protected $fieldTable = 'laporan_penindakan.id,laporan_penindakan.ukpd_id, laporan_penindakan.bap_id, laporan_penindakan.penindakan_id, laporan_penindakan.klasifikasi_id, kendaraan_id, tanggal_penindakan, tanggal_sidang, lokasi_sidang_id, jam_penindakan, nopol, pasal_pelanggaran_id, lokasi_pelanggaran, barang_bukti, pool_id, nama_pelanggar, alamat_pelanggar, warna_tnkb, tahun_perakitan, nomor_rangka, nama_pemilik, alamat_pemilik, foto, bap.noBap, bap.unit_id, unit_penindak.unit_penindak, lokasi_sidang.lokasi_sidang, pasal_pelanggaran.pasal_pelanggaran, jenispenindakan.nama_penindakan, poolpenyimpanan.nama_terminal, klasifikasi_kendaraan.nama_kendaraan, pasal_pelanggaran.keterangan';
 
 
     public function getLaporanPenindakan($now, $unit_id)
@@ -93,7 +93,7 @@ class LaporanPenindakanModel extends Model
             ->join('status_bap', 'status_bap.id = bap.status_id')
             ->join('unit_penindak', 'unit_penindak.id = bap.unit_id')
             ->join('jenispenindakan', 'jenispenindakan.id = laporan_penindakan.penindakan_id', 'left')
-            ->join('klasifikasi_kendaraan', 'klasifikasi_kendaraan.id = laporan_penindakan.klasifikasi_id', 'left')
+            ->join('klasifikasi_kendaraan', 'klasifikasi_kendaraan.id = laporan_penindakan.klasifikasi_id')
             ->join('type_kendaraan', 'type_kendaraan.id = laporan_penindakan.kendaraan_id', 'left')
             ->join('poolpenyimpanan', 'poolpenyimpanan.id = laporan_penindakan.pool_id', 'left')
             ->join('lokasi_sidang', 'lokasi_sidang.id = laporan_penindakan.lokasi_sidang_id', 'left')

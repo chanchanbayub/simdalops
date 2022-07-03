@@ -146,6 +146,7 @@ $routes->post('/petugas/laporanPenindakan/save', 'Petugas\LaporanPenindakan::sav
 $routes->post('/petugas/laporanPenindakan/edit-data', 'Petugas\LaporanPenindakan::editData');
 $routes->post('/petugas/laporanPenindakan/hapus', 'Petugas\LaporanPenindakan::hapus');
 $routes->post('/petugas/laporanPenindakan/update', 'Petugas\LaporanPenindakan::update');
+$routes->get('/petugas/laporanPenindakan/view/(:any)', 'Petugas\LaporanPenindakan::view/$1');
 
 // kota
 $routes->post('/petugas/laporanPenindakan/getKota', 'Petugas\LaporanPenindakan::getKota');
@@ -215,6 +216,7 @@ $routes->get('/verifikator/profile/getProfile', 'Verifikator\Profile::getProfile
 $routes->get('cetak_surat/SKRD/(:any)', 'Pdf\PdfController::index/$1');
 $routes->get('surat_pengeluaran/(:num)', 'Pdf\PdfController::pengeluaran/$1');
 $routes->get('/lihat_gambar/(:num)', 'Pdf\PdfController::viewImage/$1');
+$routes->get('/bap/(:num)', 'Pdf\PdfController::bap/$1');
 // End Pdf Controller
 // Excel Controller
 

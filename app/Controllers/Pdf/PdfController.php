@@ -3,8 +3,10 @@
 namespace App\Controllers\Pdf;
 
 use App\Controllers\BaseController;
+use App\Controllers\Petugas\LaporanPenindakan;
 use App\Models\Kabid\ProfileModel;
 use App\Models\Operator\SuratPengeluaranModel;
+use App\Models\Petugas\LaporanPenindakanModel;
 use Mpdf\Mpdf;
 
 class PdfController extends BaseController
@@ -12,12 +14,14 @@ class PdfController extends BaseController
     protected $pdf;
     protected $suratPengeluaran;
     protected $profileModel;
+    protected $laporanPenindakanModel;
 
     public function __construct()
     {
 
         $this->suratPengeluaran = new SuratPengeluaranModel();
         $this->profileModel = new ProfileModel();
+        $this->laporanPenindakanModel = new LaporanPenindakanModel();
     }
 
     public function index($id)
@@ -72,5 +76,22 @@ class PdfController extends BaseController
         $mpdf->WriteHTML($html);
         $this->response->setHeader('Content-Type', 'application/pdf');
         $mpdf->output('Image.pdf', 'I');
+    }
+
+    public function bap($id)
+    {
+        $dataPenindakan = $this->laporanPenindakanModel->getDataPenindakan($id);
+        // dd($dataPenindakan);
+        // $suratPengeluaran = $this->suratPengeluaran->getRowResult($id);
+
+        $data = [
+            'penindakan' => $dataPenindakan
+        ];
+
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [210, 330]]);
+        $html = view('/pdf/bap', $data);
+        $mpdf->WriteHTML($html);
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $mpdf->output('bap.pdf', 'I');
     }
 }
