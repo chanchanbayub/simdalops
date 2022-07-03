@@ -143,6 +143,10 @@ $routes->post('/petugas/laporanPenindakan/getPoolPenyimpanan', 'Petugas\LaporanP
 $routes->post('/petugas/laporanPenindakan/getTypeKendaraan', 'Petugas\LaporanPenindakan::getTypeKendaraan');
 $routes->post('/petugas/laporanPenindakan/save', 'Petugas\LaporanPenindakan::save');
 
+$routes->post('/petugas/laporanPenindakan/edit-data', 'Petugas\LaporanPenindakan::editData');
+$routes->post('/petugas/laporanPenindakan/hapus', 'Petugas\LaporanPenindakan::hapus');
+$routes->post('/petugas/laporanPenindakan/update', 'Petugas\LaporanPenindakan::update');
+
 // kota
 $routes->post('/petugas/laporanPenindakan/getKota', 'Petugas\LaporanPenindakan::getKota');
 $routes->post('/petugas/laporanPenindakan/getKecamatan', 'Petugas\LaporanPenindakan::getKecamatan');

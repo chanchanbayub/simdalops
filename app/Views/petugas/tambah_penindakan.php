@@ -250,22 +250,23 @@
     });
 
     $("#penindakan_id").change(function(e) {
-        let id = $(this).val();
+        let penindakan_id = $(this).val();
         $.ajax({
             url: '/petugas/laporanPenindakan/getPoolPenyimpanan',
             dataType: 'json',
             data: {
-                id: id
+                penindakan_id: penindakan_id,
             },
             type: 'post',
             success: function(response) {
+                console.log(response.pool_penyimpanan);
                 let pool_penyimpanan = '<option value=""> -- Silahkan Pilih -- </option>';
-                if (response.length > 0) {
+                if (response.pool_penyimpanan.length > 0) {
                     $("#pool_id").removeAttr('disabled', 'disabled');
-                    response.forEach((e) => {
+                    response.pool_penyimpanan.forEach((e) => {
                         pool_penyimpanan += `<option value="${e.id}"> ${e.nama_terminal} </option>`;
                     });
-                } else if (response.length < 1) {
+                } else {
                     $("#pool_id").attr('disabled', 'disabled');
                     pool_penyimpanan += '<option value=""> -- Silahkan Pilih -- </option>';
                 }
@@ -332,23 +333,23 @@
     });
 
     $("#klasifikasi_id").change(function(e) {
-        let id = $(this).val();
+        let klasifikasi_id = $(this).val();
         $.ajax({
             url: '/petugas/laporanPenindakan/getTypeKendaraan',
             dataType: 'json',
             data: {
-                id: id
+                klasifikasi_id: klasifikasi_id
             },
             type: 'post',
             success: function(response) {
                 let type_kendaraan = '<option value=""> -- Silahkan Pilih -- </option>';
-                if (response.length > 0) {
+                if (response.type_kendaraan.length > 0) {
                     $("#kendaraan_id").removeAttr('disabled', 'disabled');
-                    response.forEach((e) => {
+                    response.type_kendaraan.forEach((e) => {
                         type_kendaraan += `<option value="${e.id}"> ${e.type_kendaraan} </option>`;
                     });
                     $("#kendaraan_id").html(type_kendaraan);
-                } else if (response.length < 1) {
+                } else {
                     $("#kendaraan_id").attr('disabled', 'disabled');
                     type_kendaraan += '<option value=""> -- Silahkan Pilih -- </option>';
                 }
@@ -373,6 +374,10 @@
         let nama_pelanggar = $("#nama_pelanggar").val();
         let alamat_pelanggar = $("#alamat_pelanggar").val();
         let foto = $("#foto").val();
+
+        let province_id = $("#provinci_name").val();
+        let regency_id = $("#kota_name").val();
+        let kecamatan_id = $("#kecamatan_name").val();
         // console.log(foto);
 
         let formData = new FormData(this);
@@ -390,6 +395,10 @@
         formData.append('nama_pelanggar', nama_pelanggar);
         formData.append('alamat_pelanggar', alamat_pelanggar);
         formData.append('foto', foto);
+        formData.append('province_id', province_id);
+        formData.append('regency_id', regency_id);
+        formData.append('kecamatan_id', kecamatan_id);
+
 
         $("#syarat-modal").modal('show');
 

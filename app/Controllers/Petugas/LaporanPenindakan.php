@@ -8,6 +8,7 @@ use App\Models\Admin\JenisPelanggaranModel;
 use App\Models\Admin\Kecamatan;
 use App\Models\Admin\KendaraanModel;
 use App\Models\Admin\Kota;
+use App\Models\Admin\LokasiPenindakanModel;
 use App\Models\Admin\LokasiSidangModel;
 use App\Models\Admin\PasalPelanggaranModel;
 use App\Models\Admin\PenindakanModel;
@@ -33,6 +34,8 @@ class LaporanPenindakan extends BaseController
     protected $typeKendaraanModel;
     protected $jenisPenindakanModel;
 
+    protected $lokasiPenindakanModel;
+
     public function __construct()
     {
         $this->bapModel = new BapModel();
@@ -48,6 +51,7 @@ class LaporanPenindakan extends BaseController
         $this->provinsiModel = new Provinsi();
         $this->kotaModel = new Kota();
         $this->kecamatanModel = new Kecamatan();
+        $this->lokasiPenindakanModel = new LokasiPenindakanModel();
     }
 
     public function index()
@@ -76,7 +80,11 @@ class LaporanPenindakan extends BaseController
             'pasal_pelanggaran' => $this->pasalPelanggaranModel->findAll(),
             'lokasi_sidang' => $this->lokasiSidangModel->findAll(),
             'klasifikasi_kendaraan' => $this->klasifikasiKendaraanModel->findAll(),
-            'jenis_penindakan' => $this->penindakanModel->findAll()
+            'type_kendaraan' => $this->typeKendaraanModel->findAll(),
+            'jenis_penindakan' => $this->penindakanModel->findAll(),
+            'provinsi' => $this->provinsiModel->findAll(),
+            'kota' => $this->kotaModel->findAll(),
+            'kecamatan' => $this->kecamatanModel->findAll(),
         ];
 
         return view('petugas/laporanPenindakan', $data);
@@ -209,6 +217,9 @@ class LaporanPenindakan extends BaseController
                 $alamat_pelanggar = $this->request->getVar('alamat_pelanggar');
                 $foto = $this->request->getFile('foto');
                 // return json_encode($foto);
+                $province_id = $this->request->getVar('province_id');
+                $regency_id = $this->request->getVar('province_id');
+                $kecamatan_id = $this->request->getVar('kecamatan_id');
 
                 $namaFoto = $foto->getRandomName();
 
@@ -239,6 +250,12 @@ class LaporanPenindakan extends BaseController
                     'status_id' => 2
                 ]);
 
+                $this->lokasiPenindakanModel->save([
+                    'bap_id' => $bap_id,
+                    'province_id' => $province_id,
+                    'regency_id' => $regency_id,
+                    'kecamatan_id' => $kecamatan_id
+                ]);
 
                 $messeage = [
                     'success' => 'Laporan Penindakan Berhasil diitambahkan!'
@@ -253,9 +270,18 @@ class LaporanPenindakan extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
 
-            $pool_penyimpanan = $this->poolPenyimpananModel->where(["penindakan_id" => $id])->findAll();
+            $penindakan_id = $this->request->getVar('penindakan_id');
 
-            return json_encode($pool_penyimpanan);
+            $pool_penyimpanan = $this->poolPenyimpananModel->where(["penindakan_id" => $penindakan_id])->findAll();
+
+            $laporanPenindakan = $this->laporanPenindakanModel->where(["id" => $id])->first();
+
+            $data = [
+                'pool_penyimpanan' => $pool_penyimpanan,
+                'laporanPenindakan' => $laporanPenindakan
+            ];
+
+            return json_encode($data);
         }
     }
 
@@ -264,18 +290,26 @@ class LaporanPenindakan extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
 
-            $typeKendaraan = $this->typeKendaraanModel->where(["klasifikasi_id" => $id])->findAll();
+            $klasifikasi_id = $this->request->getVar('klasifikasi_id');
 
-            return json_encode($typeKendaraan);
+            $laporanPenindakan = $this->laporanPenindakanModel->where(["id" => $id])->first();
+
+            $typeKendaraan = $this->typeKendaraanModel->where(["klasifikasi_id" => $klasifikasi_id])->findAll();
+
+            $data = [
+                'type_kendaraan' => $typeKendaraan,
+                'laporanPenindakan' => $laporanPenindakan
+            ];
+            return json_encode($data);
         }
     }
 
     public function getKota()
     {
         if ($this->request->isAJAX()) {
-            $id = $this->request->getVar('id');
+            $province_id = $this->request->getVar('id');
 
-            $kota_id = $this->kotaModel->where(["province_id" => $id])->findAll();
+            $kota_id = $this->kotaModel->where(["province_id" => $province_id])->findAll();
 
             return json_encode($kota_id);
         }
@@ -290,6 +324,87 @@ class LaporanPenindakan extends BaseController
             $kecamatan_id = $this->kecamatanModel->where(["regency_id" => $id])->findAll();
 
             return json_encode($kecamatan_id);
+        }
+    }
+
+    public function editData()
+    {
+        if ($this->request->isAJAX()) {
+
+            $id = $this->request->getVar('id');
+
+            $data = $this->laporanPenindakanModel->getDataPenindakan($id);
+
+            $lokasi_penindakan = $this->lokasiPenindakanModel->where(["bap_id" => $data["bap_id"]])->first();
+
+            $data = [
+                'laporanPenindakan' => $data,
+                'lokasi_penindakan' => $lokasi_penindakan
+            ];
+
+            return json_encode($data);
+        }
+    }
+
+    public function hapus()
+    {
+        if ($this->request->isAJAX()) {
+
+            $id = $this->request->getVar('id');
+
+            $laporanPenindakan = $this->laporanPenindakanModel->where(["id" => $id])->first();
+
+            unlink("foto-penindakan/" . $laporanPenindakan["foto"]);
+
+            $this->laporanPenindakanModel->delete($laporanPenindakan["id"]);
+
+            $messeage = [
+                'success' => 'Data Berhasil di Hapus!'
+            ];
+
+            return json_encode($messeage);
+        }
+    }
+
+    public function update()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            $bap_id = $this->request->getVar('bap_id');
+            $penindakan_id = $this->request->getPost('penindakan_id');
+            $klasifikasi_id = $this->request->getVar('klasifikasi_id');
+            $kendaraan_id = $this->request->getVar('kendaraan_id');
+            $nopol = $this->request->getVar('nopol');
+            $pasal_pelanggaran_id = $this->request->getVar('pasal_pelanggaran_id');
+            $lokasi_pelanggaran = $this->request->getVar('lokasi_pelanggaran');
+            $tanggal_sidang = $this->request->getVar('tanggal_sidang');
+            $lokasi_sidang_id = $this->request->getVar('lokasi_sidang_id');
+            $pool_id = $this->request->getVar('pool_id');
+            $nama_pelanggar = $this->request->getVar('nama_pelanggar');
+            $alamat_pelanggar = $this->request->getVar('alamat_pelanggar');
+
+            $this->laporanPenindakanModel->update($id, [
+                'id' => $id,
+                'bap_id' => $bap_id,
+                'penindakan_id' => $penindakan_id,
+                'klasifikasi_id' => $klasifikasi_id,
+                'kendaraan_id' => $kendaraan_id,
+                'nopol' => strtoupper($nopol),
+                'pasal_pelanggaran_id' => $pasal_pelanggaran_id,
+                'tanggal_sidang' => $tanggal_sidang,
+                'lokasi_sidang_id' => $lokasi_sidang_id,
+                'pool_id' => $pool_id,
+                'lokasi_pelanggaran' => ucwords($lokasi_pelanggaran),
+                'tanggal_masuk_bap' => date('Y-m-d'),
+                'nama_pelanggar' => ucwords($nama_pelanggar),
+                'alamat_pelanggar' => ucwords($alamat_pelanggar),
+            ]);
+
+            $messeage = [
+                'success' => 'Data Berhasil di Update!'
+            ];
+
+            return json_encode($messeage);
         }
     }
 }
