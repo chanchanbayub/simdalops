@@ -6,6 +6,7 @@ use App\Controllers\Admin\PoolPenyimpanan;
 use App\Controllers\BaseController;
 use App\Models\Admin\JenisPelanggaranModel;
 use App\Models\Admin\Kecamatan;
+use App\Models\Admin\KelurahanModel;
 use App\Models\Admin\KendaraanModel;
 use App\Models\Admin\Kota;
 use App\Models\Admin\LokasiPenindakanModel;
@@ -24,6 +25,7 @@ class LaporanPenindakan extends BaseController
     protected $provinsiModel;
     protected $kotaModel;
     protected $kecamtanModel;
+    protected $kelurahanModel;
     protected $validation;
     protected $laporanPenindakanModel;
     protected $pasalPelanggaranModel;
@@ -51,6 +53,7 @@ class LaporanPenindakan extends BaseController
         $this->provinsiModel = new Provinsi();
         $this->kotaModel = new Kota();
         $this->kecamatanModel = new Kecamatan();
+        $this->kelurahanModel = new KelurahanModel();
         $this->lokasiPenindakanModel = new LokasiPenindakanModel();
     }
 
@@ -59,7 +62,6 @@ class LaporanPenindakan extends BaseController
 
 
         $now = date("Y-m-d");
-        // dd(session('unit_id'));
 
         $keyword = $this->request->getVar('keyword');
 
@@ -85,6 +87,7 @@ class LaporanPenindakan extends BaseController
             'provinsi' => $this->provinsiModel->findAll(),
             'kota' => $this->kotaModel->findAll(),
             'kecamatan' => $this->kecamatanModel->findAll(),
+            'kelurahan' => $this->kelurahanModel->findAll(),
         ];
 
         return view('petugas/laporanPenindakan', $data);
@@ -217,9 +220,10 @@ class LaporanPenindakan extends BaseController
                 $alamat_pelanggar = $this->request->getVar('alamat_pelanggar');
                 $foto = $this->request->getFile('foto');
                 // return json_encode($foto);
-                $province_id = $this->request->getVar('province_id');
-                $regency_id = $this->request->getVar('province_id');
+                $provinsi_id = $this->request->getVar('provinsi_id');
+                $kota_id = $this->request->getVar('kota_id');
                 $kecamatan_id = $this->request->getVar('kecamatan_id');
+                $kelurahan_id = $this->request->getVar('kelurahan_id');
 
                 $namaFoto = $foto->getRandomName();
 
@@ -252,9 +256,10 @@ class LaporanPenindakan extends BaseController
 
                 $this->lokasiPenindakanModel->save([
                     'bap_id' => $bap_id,
-                    'province_id' => $province_id,
-                    'regency_id' => $regency_id,
-                    'kecamatan_id' => $kecamatan_id
+                    'provinsi_id' => $provinsi_id,
+                    'kota_id' => $kota_id,
+                    'kecamatan_id' => $kecamatan_id,
+                    'kelurahan_id' => $kelurahan_id
                 ]);
 
                 $messeage = [
@@ -307,9 +312,9 @@ class LaporanPenindakan extends BaseController
     public function getKota()
     {
         if ($this->request->isAJAX()) {
-            $province_id = $this->request->getVar('id');
+            $provinsi_id = $this->request->getVar('id');
 
-            $kota_id = $this->kotaModel->where(["province_id" => $province_id])->findAll();
+            $kota_id = $this->kotaModel->where(["provinsi_id" => $provinsi_id])->findAll();
 
             return json_encode($kota_id);
         }
@@ -320,10 +325,20 @@ class LaporanPenindakan extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
 
-
-            $kecamatan_id = $this->kecamatanModel->where(["regency_id" => $id])->findAll();
+            $kecamatan_id = $this->kecamatanModel->where(["kabkot_id" => $id])->findAll();
 
             return json_encode($kecamatan_id);
+        }
+    }
+
+    public function getKelurahan()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+
+            $kelurahan_id = $this->kelurahanModel->where(["kecamatan_id" => $id])->findAll();
+
+            return json_encode($kelurahan_id);
         }
     }
 

@@ -20,19 +20,27 @@ class LokasiPenindakan extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
-            'province_id' => [
+            'provinsi_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
 
             ],
-            'regency_id' => [
+            'kota_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
 
             ],
             'kecamatan_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
+            ],
+            'kelurahan_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
             ],
             'created_at' => [
                 'type' => 'datetime',
@@ -45,6 +53,10 @@ class LokasiPenindakan extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('bap_id', 'laporan_penindakan', 'bap_id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('provinsi_id', 'provinsi', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('kota_id', 'kota', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('kecamatan_id', 'kecamatan', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('kelurahan_id', 'kelurahan', 'id', 'CASCADE', 'CASCADE');
         $attributes = ['ENGINE' => 'InnoDB'];
         $this->forge->createTable('lokasi_penindakan', false, $attributes);
     }

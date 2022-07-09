@@ -53,7 +53,7 @@
                                             <small id="errorPenindakan" class="text-danger"></small>
                                         </div>
                                         <div class="form-group">
-                                            <label for="klasifikasi_id" class="col-form-label">Klasifikasi Kendaraan : </label>
+                                            <label for="klasifikasi_id" class="col-form-label">Jenis Kendaraan : </label>
                                             <select name="klasifikasi_id" style="width: 100%;" id="klasifikasi_id" class="form-control">
                                                 <option value=""> -- Silahkan Pilih -- </option>
                                                 <?php foreach ($klasifikasi_kendaraan as $klasifikasi) : ?>
@@ -85,34 +85,38 @@
                                             <small class=" text-danger" id="errorPasal"></small>
                                         </div>
                                         <div class="form-group">
-                                            <label for="provinci_name">Lokasi Pelanggaran (Provinsi) :</label>
-                                            <select name="province_id" style="width: 100%;" id="provinci_name" class="form-control">
+                                            <label for="provinsi_id">Lokasi Pelanggaran (Provinsi) :</label>
+                                            <select name="provinsi_id" style="width: 100%;" id="provinsi_id" class="form-control">
                                                 <option value=""> -- Silahkan Pilih -- </option>
                                                 <?php foreach ($provinsi as $provinsi) : ?>
-                                                    <option value="<?= $provinsi["id"] ?>"> <?= $provinsi["name"] ?> </option>
+                                                    <option value="<?= $provinsi["id"] ?>"><?= $provinsi["provinsi"] ?></option>
                                                 <?php endforeach; ?>
+
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="kota_name">Lokasi Pelanggaran (Kota) :</label>
-                                            <select name="regency_id" style="width: 100%;" id="kota_name" class="form-control" disabled>
+                                            <label for="kota_id">Lokasi Pelanggaran (Kota) :</label>
+                                            <select name="kota_id" style="width: 100%;" id="kota_id" class="form-control" disabled>
                                                 <option value=""> -- Silahkan Pilih -- </option>
-                                                <?php foreach ($kota as $kota) : ?>
-                                                    <option value="<?= $kota["id"] ?>"> <?= $kota["name"] ?> </option>
-                                                <?php endforeach; ?>
+
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="kecamatan_name">Lokasi Pelanggaran (Kecamatan) :</label>
-                                            <select name="kecamatan_id" style="width: 100%;" id="kecamatan_name" class="form-control" disabled>
+                                            <label for="kecamatan_id">Lokasi Pelanggaran (Kecamatan) :</label>
+                                            <select name="kecamatan_id" style="width: 100%;" id="kecamatan_id" class="form-control" disabled>
                                                 <option value=""> -- Silahkan Pilih -- </option>
-                                                <?php foreach ($kecamatan as $kecamatan) : ?>
-                                                    <option value="<?= $kecamatan["id"] ?>"> <?= $kecamatan["name"] ?> </option>
-                                                <?php endforeach; ?>
+
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="lokasi_pelanggaran">Lokasi Pelanggaran :</label>
+                                            <label for="kelurahan_id">Lokasi Pelanggaran (Kelurahan) :</label>
+                                            <select name="kelurahan_id" style="width: 100%;" id="kelurahan_id" class="form-control" disabled>
+                                                <option value=""> -- Silahkan Pilih -- </option>
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lokasi_pelanggaran">Lokasi Pelanggaran (Nama Jalan) :</label>
                                             <input type="text" name="lokasi_pelanggaran" id="lokasi_pelanggaran" class="form-control" placeholder="Masukan Lokasi Pelanggaran" style="text-transform: capitalize;">
                                             <small class="text-danger" id="errorLokasi"> </small>
                                         </div>
@@ -238,13 +242,16 @@
         $("#kendaraan_id").select2({
             theme: 'bootstrap4'
         });
-        $("#provinci_name").select2({
+        $("#provinsi_id").select2({
             theme: 'bootstrap4'
         });
-        $("#kota_name").select2({
+        $("#kota_id").select2({
             theme: 'bootstrap4'
         });
-        $("#kecamatan_name").select2({
+        $("#kecamatan_id").select2({
+            theme: 'bootstrap4'
+        });
+        $("#kelurahan_id").select2({
             theme: 'bootstrap4'
         });
     });
@@ -259,7 +266,7 @@
             },
             type: 'post',
             success: function(response) {
-                console.log(response.pool_penyimpanan);
+                // console.log(response.pool_penyimpanan);
                 let pool_penyimpanan = '<option value=""> -- Silahkan Pilih -- </option>';
                 if (response.pool_penyimpanan.length > 0) {
                     $("#pool_id").removeAttr('disabled', 'disabled');
@@ -275,7 +282,7 @@
         });
     });
 
-    $("#provinci_name").change(function(e) {
+    $("#provinsi_id").change(function(e) {
         let id = $(this).val();
         // console.log(id);
         $.ajax({
@@ -289,21 +296,21 @@
                 // console.log(response)
                 let kota = '<option value=""> -- Silahkan Pilih -- </option>';
                 if (response.length > 0) {
-                    $("#kota_name").removeAttr('disabled', 'disabled');
+                    $("#kota_id").removeAttr('disabled', 'disabled');
                     response.forEach((e) => {
-                        kota += `<option value="${e.id}"> ${e.name} </option>`;
+                        kota += `<option value="${e.id}"> ${e.kabupaten_kota} </option>`;
                     });
-                    $("#kota_name").html(kota);
+                    $("#kota_id").html(kota);
                 } else {
-                    $("#kota_name").attr('disabled', 'disabled');
+                    $("#kota_id").attr('disabled', 'disabled');
                     kota += '<option value=""> -- Silahkan Pilih -- </option>';
                 }
-                $("#kota_name").html(kota);
+                $("#kota_id").html(kota);
             }
         });
     });
 
-    $("#kota_name").change(function(e) {
+    $("#kota_id").change(function(e) {
         let id = $(this).val();
 
         // console.log(id);
@@ -318,16 +325,45 @@
                 // console.log(response)
                 let kecamatan = '<option value=""> -- Silahkan Pilih -- </option>';
                 if (response.length > 0) {
-                    $("#kecamatan_name").removeAttr('disabled', 'disabled');
+                    $("#kecamatan_id").removeAttr('disabled', 'disabled');
                     response.forEach((e) => {
-                        kecamatan += `<option value="${e.id}"> ${e.name} </option>`;
+                        kecamatan += `<option value="${e.id}"> ${e.kecamatan} </option>`;
                     });
-                    $("#kecamatan_name").html(kecamatan);
+                    $("#kecamatan_id").html(kecamatan);
                 } else {
-                    $("#kecamatan_name").attr('disabled', 'disabled');
+                    $("#kecamatan_id").attr('disabled', 'disabled');
                     kecamatan += '<option value=""> -- Silahkan Pilih -- </option>';
                 }
-                $("#kecamatan_name").html(kecamatan);
+                $("#kecamatan_id").html(kecamatan);
+            }
+        });
+    });
+
+    $("#kecamatan_id").change(function(e) {
+        let id = $(this).val();
+
+        // console.log(id);
+        $.ajax({
+            url: '/petugas/laporanPenindakan/getKelurahan',
+            dataType: 'json',
+            data: {
+                id: id
+            },
+            type: 'post',
+            success: function(response) {
+                // console.log(response)
+                let kelurahan = '<option value=""> -- Silahkan Pilih -- </option>';
+                if (response.length > 0) {
+                    $("#kelurahan_id").removeAttr('disabled', 'disabled');
+                    response.forEach((e) => {
+                        kelurahan += `<option value="${e.id}"> ${e.kelurahan} </option>`;
+                    });
+                    $("#kelurahan_id").html(kelurahan);
+                } else {
+                    $("#kelurahan_id").attr('disabled', 'disabled');
+                    kelurahan += '<option value=""> -- Silahkan Pilih -- </option>';
+                }
+                $("#kelurahan_id").html(kelurahan);
             }
         });
     });
@@ -375,9 +411,10 @@
         let alamat_pelanggar = $("#alamat_pelanggar").val();
         let foto = $("#foto").val();
 
-        let province_id = $("#provinci_name").val();
-        let regency_id = $("#kota_name").val();
-        let kecamatan_id = $("#kecamatan_name").val();
+        let provinsi_id = $("#provinsi_id").val();
+        let kota_id = $("#kota_id").val();
+        let kecamatan_id = $("#kecamatan_id").val();
+        let kelurahan_id = $("#kelurahan_id").val();
         // console.log(foto);
 
         let formData = new FormData(this);
@@ -395,9 +432,10 @@
         formData.append('nama_pelanggar', nama_pelanggar);
         formData.append('alamat_pelanggar', alamat_pelanggar);
         formData.append('foto', foto);
-        formData.append('province_id', province_id);
-        formData.append('regency_id', regency_id);
+        formData.append('provinsi_id', provinsi_id);
+        formData.append('kota_id', kota_id);
         formData.append('kecamatan_id', kecamatan_id);
+        formData.append('kelurahan_id', kelurahan_id);
 
 
         $("#syarat-modal").modal('show');

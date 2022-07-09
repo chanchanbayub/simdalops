@@ -9,5 +9,5 @@ class Provinsi extends Model
     protected $table                = 'provinsi';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
-    protected $allowedFields        = ['id', 'name'];
+    protected $allowedFields        = ['id', 'provinsi', 'ibukota', 'p_bsni'];
 }

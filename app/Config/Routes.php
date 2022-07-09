@@ -151,6 +151,7 @@ $routes->get('/petugas/laporanPenindakan/view/(:any)', 'Petugas\LaporanPenindaka
 // kota
 $routes->post('/petugas/laporanPenindakan/getKota', 'Petugas\LaporanPenindakan::getKota');
 $routes->post('/petugas/laporanPenindakan/getKecamatan', 'Petugas\LaporanPenindakan::getKecamatan');
+$routes->post('/petugas/laporanPenindakan/getKelurahan', 'Petugas\LaporanPenindakan::getKelurahan');
 // operator
 $routes->get('/operator/dashboard/', 'Operator\Dashboard::index');
 // surat pengeluaran
