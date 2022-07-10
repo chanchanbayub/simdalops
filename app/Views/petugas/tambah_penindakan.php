@@ -112,13 +112,16 @@
                                             <label for="kelurahan_id">Lokasi Pelanggaran (Kelurahan) :</label>
                                             <select name="kelurahan_id" style="width: 100%;" id="kelurahan_id" class="form-control" disabled>
                                                 <option value=""> -- Silahkan Pilih -- </option>
-
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="lokasi_pelanggaran">Lokasi Pelanggaran (Nama Jalan) :</label>
                                             <input type="text" name="lokasi_pelanggaran" id="lokasi_pelanggaran" class="form-control" placeholder="Masukan Lokasi Pelanggaran" style="text-transform: capitalize;">
                                             <small class="text-danger" id="errorLokasi"> </small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="keterangan">Keterangan Nama Gedung, Nama Toko (opsional) :</label>
+                                            <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan Nama Gedung" style="text-transform: capitalize;">
                                         </div>
                                         <div class="form-group">
                                             <label for="tanggal_sidang">Tanggal Sidang :</label>
@@ -144,12 +147,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="nama_pelanggar">Nama Pelanggar :</label>
-                                            <input type="text" name="nama_pelanggar" id="nama_pelanggar" class="form-control" placeholder="Masukan Nama Pelanggar">
+                                            <input type="text" style="text-transform: capitalize;" name="nama_pelanggar" id="nama_pelanggar" class="form-control" placeholder="Masukan Nama Pelanggar">
                                             <small class="text-danger" id="errorNamaPelanggar"> </small>
                                         </div>
                                         <div class="form-group">
                                             <label for="alamat_pelanggar">Alamat Pelanggar :</label>
-                                            <input type="text" name="alamat_pelanggar" id="alamat_pelanggar" class="form-control" placeholder="Masukan Alamat Pelanggar">
+                                            <input type="text" style="text-transform: capitalize;" name="alamat_pelanggar" id="alamat_pelanggar" class="form-control" placeholder="Masukan Alamat Pelanggar">
                                             <small class="text-danger" id="errorAlamatPelanggar"> </small>
                                         </div>
                                         <div class=" form-group">
@@ -415,6 +418,7 @@
         let kota_id = $("#kota_id").val();
         let kecamatan_id = $("#kecamatan_id").val();
         let kelurahan_id = $("#kelurahan_id").val();
+        let keterangan = $("#keterangan").val();
         // console.log(foto);
 
         let formData = new FormData(this);
@@ -436,6 +440,7 @@
         formData.append('kota_id', kota_id);
         formData.append('kecamatan_id', kecamatan_id);
         formData.append('kelurahan_id', kelurahan_id);
+        formData.append('keterangan', keterangan);
 
 
         $("#syarat-modal").modal('show');

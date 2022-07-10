@@ -224,6 +224,7 @@ class LaporanPenindakan extends BaseController
                 $kota_id = $this->request->getVar('kota_id');
                 $kecamatan_id = $this->request->getVar('kecamatan_id');
                 $kelurahan_id = $this->request->getVar('kelurahan_id');
+                $keterangan = $this->request->getVar('keterangan');
 
                 $namaFoto = $foto->getRandomName();
 
@@ -259,7 +260,8 @@ class LaporanPenindakan extends BaseController
                     'provinsi_id' => $provinsi_id,
                     'kota_id' => $kota_id,
                     'kecamatan_id' => $kecamatan_id,
-                    'kelurahan_id' => $kelurahan_id
+                    'kelurahan_id' => $kelurahan_id,
+                    'keterangan' => $keterangan
                 ]);
 
                 $messeage = [

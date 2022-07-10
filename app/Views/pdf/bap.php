@@ -144,11 +144,14 @@
 		/* border: 1px solid black; */
 	}
 
+	.output {
+		color: blue;
+	}
+
 	/* .table-footer td {
 		text-align: center;
 	} */
 </style>
-
 
 <body>
 	<header>
@@ -185,7 +188,7 @@
 				<td rowspan="3">
 					<h4 style="text-align:center ;">BERITA ACARA PEMERIKSAAN CEPAT</h4>
 					<h4 style="text-align:center ;">PELANGGARAN LALU LINTAS DAN ANGKUTAN JALAN</h4>
-					<h4>No. BAP/........................... / ............ /JKT/...............</h4>
+					<h4>No. BAP/A.<?= $penindakan["noBap"] ?> / ............ /JKT/ <?= date("Y") ?></h4>
 				</td>
 				<td rowspan="2">
 					<h4 style="color:red ;"> <b> A.<?= $penindakan["noBap"] ?> </b></h4>
@@ -197,7 +200,7 @@
 		<table class="content">
 			<tr>
 				<td>
-					<p>Pada hari ini <b> <?= strftime('%A', strtotime($penindakan["tanggal_penindakan"])) ?> </b> tanggal <b> <?= date('d F Y', strtotime($penindakan["tanggal_penindakan"]))  ?></b> saya sebagaimana tersebut bertanda tangan di bawah ini selaku Penyidik Pegawai Negeri Sipil (PPNS) pada Dinas Perhubungan Provinsi DKI Jakarta telah memeriksa Perkara Pelanggaran Lalu Lintas Jalan sesuai UU No.8 Tahun 1981 tentang Hukum Acara Pidana Pasal 211 dan/atau UU No.22 Tahun 2009 tentang Lalu Lintas dan Angkutan Jalan dan/atau UU No.23 Tahun 2014 tentang Pemerintahan Daerah dan/atau Peraturan Daerah Provinsi DKI Jakarta No.8 Tahun 2007 tentang Ketertiban Umum dan/atau Peraturan Daerah Provinsi DKI Jakarta No.5 Tahun 2014 tentang Transportasi.</p>
+					<p>Pada hari ini <b class="output"> <?= date('d', strtotime($penindakan["tanggal_penindakan"])) ?> </b> tanggal <b class="output"> <?= date('d F Y', strtotime($penindakan["tanggal_penindakan"]))  ?></b> saya sebagaimana tersebut bertanda tangan di bawah ini selaku Penyidik Pegawai Negeri Sipil (PPNS) pada Dinas Perhubungan Provinsi DKI Jakarta telah memeriksa Perkara Pelanggaran Lalu Lintas Jalan sesuai UU No.8 Tahun 1981 tentang Hukum Acara Pidana Pasal 211 dan/atau UU No.22 Tahun 2009 tentang Lalu Lintas dan Angkutan Jalan dan/atau UU No.23 Tahun 2014 tentang Pemerintahan Daerah dan/atau Peraturan Daerah Provinsi DKI Jakarta No.8 Tahun 2007 tentang Ketertiban Umum dan/atau Peraturan Daerah Provinsi DKI Jakarta No.5 Tahun 2014 tentang Transportasi.</p>
 				</td>
 			</tr>
 		</table>
@@ -211,7 +214,7 @@
 		<table class="paragraf-table">
 			<tr>
 				<td align="justify">
-					<p> Pelanggaran Lalu Lintas dan Angkutan Jalan berupa Pasal <b> <?= $penindakan["pasal_pelanggaran"]  ?> </b> <b> <?= $penindakan["keterangan"] ?> </b> hari .................................................................................... tanggal <b> <?= date('d F Y', strtotime($penindakan["tanggal_penindakan"])) ?> </b> jam <b><?= $penindakan["jam_penindakan"] ?> </b> WIB di Jalan <b> <?= $penindakan["lokasi_pelanggaran"] ?> </b>
+					<p> Pelanggaran Lalu Lintas dan Angkutan Jalan berupa Pasal <b class="output"> <?= $penindakan["pasal_pelanggaran"]  ?> </b> <b class="output"> <?= $penindakan["keterangan"] ?> </b> hari <?= strftime('%A', strtotime($penindakan["tanggal_penindakan"])) ?> tanggal <b class="output"> <?= date('d F Y', strtotime($penindakan["tanggal_penindakan"])) ?> </b> jam <b class="output"><?= $penindakan["jam_penindakan"] ?> </b> WIB di Jalan <b class="output"> <?= $penindakan["lokasi_pelanggaran"] ?> </b>
 					</p>
 				</td>
 			</tr>
@@ -226,7 +229,9 @@
 		<table class="paragraf-table">
 			<tr>
 				<td>
-					<p> Pelanggaran Lalu Lintas dan Angkutan Jalan berupa ............................................................................................................... hari .................................................................. tanggal <b> <?= date('d F Y', strtotime($penindakan["tanggal_penindakan"])) ?> </b> jam <b><?= $penindakan["jam_penindakan"] ?> </b> WIB di Jalan <b> <?= $penindakan["lokasi_pelanggaran"] ?> </b>
+					<p> Nama <b class="output"> <?= $penindakan["nama_petugas"] ?> </b> pangkat .......……. tempat tanggal lahir .......................................................................
+						tempat tinggal <b class="output">Jakarta</b>
+						Pekerjaan Pegawai pada Dinas Perhubungan Provinsi DKI Jakarta, menerangkan bahwa pada tanggal tersebut telah melihat pelanggaran Lalu Lintas dan Angkutan Jalan oleh terdakwa pada angka 1 di atas.
 					</p>
 				</td>
 			</tr>
@@ -241,7 +246,7 @@
 		<table class="paragraf-table">
 			<tr>
 				<td align="justify">
-					<p>Nama <b> <?= $penindakan["nama_pelanggar"] ?> </b> pekerjaan .......................................................................... tempat tanggal lahir ..................................................................................... jenis kelamin ............................................... tempat tinggal <b> <?= $penindakan["alamat_pelanggar"] ?> </b> Menerangkan bahwa pada tanggal tersebut telah melakukan pelanggaran Lalu Lintas dan Angkutan Jalan dengan menggunakan kendaraan bermotor Angkutan Umum / Mobil Barang : <b> <?= $penindakan["nama_kendaraan"] ?> </b> dengan No. Kendaraan <b> <?= $penindakan["nopol"] ?> </b> Sesuai dengan UU No.8 Tahun 1981 tentang Hukum Acara Pidana Pasal 213, Terdakwa dapat menunjuk seorang dengan surat untuk mewakilinya di sidang.
+					<p>Nama <b class="output"> <?= $penindakan["nama_pelanggar"] ?> </b> pekerjaan sebagai <b class="output">Pengemudi</b> tempat tinggal <b class="output"> <?= $penindakan["alamat_pelanggar"] ?> </b> Menerangkan bahwa pada tanggal tersebut telah melakukan pelanggaran Lalu Lintas dan Angkutan Jalan dengan menggunakan kendaraan bermotor Mobil Penumpang / Mobil Barang : <b class="output"> <?= $penindakan["nama_kendaraan"] ?> </b> dengan No. Kendaraan <b class="output"> <?= $penindakan["nopol"] ?> </b> Sesuai dengan UU No.8 Tahun 1981 tentang Hukum Acara Pidana Pasal 213, Terdakwa dapat menunjuk seorang dengan surat untuk mewakilinya di sidang.
 					</p>
 				</td>
 			</tr>
@@ -260,7 +265,7 @@
 					<p> a. Kartu Uji Berkala No:.............................................berlakus.d.tanggal..........................................</p>
 					<p> b. Kartu Pengawasan No:.............................................berlakus.d.tanggal.......................................... </p>
 					<p> c. Lain-lain......................................................</p>
-					<p> d. Kendaraan dilakukan penundaan operasi sementara di <b><?= $penindakan["nama_terminal"] ?></b></p>
+					<p> d. Kendaraan dilakukan penundaan operasi sementara di <b class="output"><?= $penindakan["nama_terminal"] ?></b></p>
 				</td>
 			</tr>
 		</table>
@@ -274,7 +279,7 @@
 		<table class="paragraf-table">
 			<tr>
 				<td align="justify">
-					<p>Berdasarkan Keterangan Saksi dan Keterangan Terdakwa serta melihat Barang Bukti yang disita memberi petunjuk bahwa Terdakwa telah melakukan pelanggaran Lalu Lintas dan Angkutan Jalan sesuai Pasal di atas selanjutnya Terdakwa diperintahkan menghadap di Pengadilan Negeri <b> <?= $penindakan["lokasi_sidang"] ?> </b> Pada hari <b> <?= strftime('%A', strtotime($penindakan["tanggal_sidang"])) ?> </b> tanggal <b> <?= date('d F Y', strtotime($penindakan["tanggal_sidang"])) ?> </b> jam................. WIB di Jalan ....................................................................................... Demikian catatan pemeriksaan perkara pelanggaran Lalu Lintas Jalan ini dibuat sebenarnya dengan mengingat sumpah jabatan, ditutup dan ditandatangani pada hari dan tanggal seperti tersebut pada permulaan, Catatan perkara pelanggaran tertentu sesuai UU No.8 Tahun 1981 tentang Hukum Acara Pidana Pasal 211 s.d. 216 tentang pemeriksaan perkara pelanggaran tertentu terhadap peraturan perundang-undangan lalu lintas jalan.</p>
+					<p>Berdasarkan Keterangan Saksi dan Keterangan Terdakwa serta melihat Barang Bukti yang disita memberi petunjuk bahwa Terdakwa telah melakukan pelanggaran Lalu Lintas dan Angkutan Jalan sesuai Pasal di atas selanjutnya Terdakwa diperintahkan menghadap di Pengadilan Negeri <b class="output"> <?= $penindakan["lokasi_sidang"] ?> </b> Pada hari <b class="output"> <?= strftime('%A', strtotime($penindakan["tanggal_sidang"])) ?> </b> tanggal <b class="output"> <?= date('d F Y', strtotime($penindakan["tanggal_sidang"])) ?> </b> jam................. WIB di Jalan ....................................................................................... Demikian catatan pemeriksaan perkara pelanggaran Lalu Lintas Jalan ini dibuat sebenarnya dengan mengingat sumpah jabatan, ditutup dan ditandatangani pada hari dan tanggal seperti tersebut pada permulaan, Catatan perkara pelanggaran tertentu sesuai UU No.8 Tahun 1981 tentang Hukum Acara Pidana Pasal 211 s.d. 216 tentang pemeriksaan perkara pelanggaran tertentu terhadap peraturan perundang-undangan lalu lintas jalan.</p>
 				</td>
 			</tr>
 		</table>
@@ -395,8 +400,12 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td>(..................................................)</td>
-				<td align="center">(<?= $penindakan["nama_pelanggar"] ?>)</td>
+				<td align="center">
+					<p class="output">( <?= $penindakan["nama_petugas"] ?> ) </p>
+				</td>
+				<td align="center">
+					<p class="output">( <?= $penindakan["nama_pelanggar"] ?> ) </p>
+				</td>
 				<td></td>
 			</tr>
 			<tr>
