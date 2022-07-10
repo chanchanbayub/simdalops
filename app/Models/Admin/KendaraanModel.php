@@ -23,7 +23,7 @@ class KendaraanModel extends Model
     {
         $this->table($this->table)
             ->select($this->fieldTable)
-            ->join('jenis_kendaraan', 'jenis_kendaraan.id = klasifikasi_kendaraan.jenis_kendaraan_id');
+            ->join('jenis_kendaraan', 'jenis_kendaraan.id = klasifikasi_kendaraan.jenis_kendaraan_id', 'left');
 
         return [
             "klasifikasi_kendaraan" => $this
