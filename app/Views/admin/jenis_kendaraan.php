@@ -30,31 +30,29 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Klasifikasi Kendaraan</h3>
+                            <h3 class="card-title">Data Jenis Kendaraan</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <button type="button" class="btn btn-inline btn-outline-dark btn-sm mb-3" id="modal-save" data-toggle="modal" data-target="#add-kendaraan"> <i class="fa fa-plus"></i> Tambah Klasifikasi Kendaraan </button>
+                            <button type="button" class="btn btn-inline btn-outline-dark btn-sm mb-3" id="modal-save" data-toggle="modal" data-target="#add-kendaraan"> <i class="fa fa-plus"></i> Tambah Jenis Kendaraan </button>
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>No </th>
                                         <th>Jenis Kendaraan</th>
-                                        <th>Klasifikasi Kendaraan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no = 1 + (5 * ($currentPage - 1));
-                                    if (count($kendaraan) > 0) :
-                                        foreach ($kendaraan as $kendaraan) : ?>
+                                    <?php $no = 1;
+                                    if (count($jenis_kendaraan) > 0) :
+                                        foreach ($jenis_kendaraan as $jenis_kendaraan) : ?>
                                             <tr>
                                                 <td><?= $no++ ?>.</td>
-                                                <td> <?= $kendaraan["jenis_kendaraan"] ?></td>
-                                                <td> <?= $kendaraan["nama_kendaraan"] ?> </td>
+                                                <td> <?= $jenis_kendaraan["jenis_kendaraan"] ?> </td>
                                                 <td>
-                                                    <button type="button" class="btn btn-inline bg-gradient-warning btn-sm edit" data-toggle="modal" data-target="#add-kendaraan" data-id="<?= $kendaraan["id"] ?>"> <i class="fa fa-edit"></i></button>
-                                                    <button type="button" data-toggle="modal" data-target="#delete-kendaraan" data-id="<?= $kendaraan["id"] ?>" class="btn btn-inline bg-gradient-danger btn-sm delete-data"> <i class="fa fa-trash"></i></button>
+                                                    <button type="button" class="btn btn-inline bg-gradient-warning btn-sm edit" data-toggle="modal" data-target="#add-kendaraan" data-id="<?= $jenis_kendaraan["id"] ?>"> <i class="fa fa-edit"></i></button>
+                                                    <button type="button" data-toggle="modal" data-target="#delete-kendaraan" data-id="<?= $jenis_kendaraan["id"] ?>" class="btn btn-inline bg-gradient-danger btn-sm delete-data"> <i class="fa fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -66,7 +64,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            <?= $pager->links("klasifikasi_kendaraan", "custom_pagination"); ?>
+
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -91,20 +89,10 @@
             <div class="modal-body">
                 <form id="formKendaraan" autocomplete="off">
                     <?= csrf_field(); ?>
-                    <input type="hidden" name="id" id="id">
+                    <input type="text" name="id" id="id">
                     <div class="form-group">
-                        <label for="jenis_kendaraan_id" class="col-form-label">Jenis Kendaraan :</label>
-                        <select name="jenis_kendaraan_id" id="jenis_kendaraan_id" class="form-control">
-                            <option value="">-- Silahkan Pilih --</option>
-                            <?php foreach ($jenis_kendaraan as $jenis_kendaraan) : ?>
-                                <option value="<?= $jenis_kendaraan["id"] ?>"><?= $jenis_kendaraan["jenis_kendaraan"] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small id="errorJenisKendaraan" class="text-danger"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="nama_kendaraan" class="col-form-label">Klasifikasi Kendaraan :</label>
-                        <input type="text" style="text-transform: capitalize;" class="form-control" id="nama_kendaraan" name="nama_kendaraan" placeholder="Masukan Nama Jenis kendaraan">
+                        <label for="jenis_kendaraan" class="col-form-label">Jenis Kendaraan :</label>
+                        <input type="text" style="text-transform: capitalize;" class="form-control" id="jenis_kendaraan" name="jenis_kendaraan" placeholder="Masukan Nama Jenis kendaraan">
                         <small id="errorKendaraan" class="text-danger"></small>
                     </div>
                     <div class="modal-footer justify-content">
@@ -125,7 +113,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"> Delete Penindakan</h4>
+                <h4 class="modal-title"> Delete Jenis Kendaraan</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -156,13 +144,8 @@
     $("#modal-save").click(function(e) {
         $(".modal-title").html('Tambah Klasifikasi Kendaraan');
         $("#id").val('');
-
         $("#jenis_kendaraan").val('');
         $("#jenis_kendaraan").removeClass('is-invalid');
-        $("#errorJenisKendaraan").html('');
-
-        $("#nama_kendaraan").val('');
-        $("#nama_kendaraan").removeClass('is-invalid');
         $("#errorKendaraan").html('');
         $(".update").css('display', 'none').attr('disabled', 'disabled');
         $(".save").css('display', 'block').removeAttr('disabled', 'disabled');
@@ -171,15 +154,13 @@
 
     $("#formKendaraan").submit(function(e) {
         e.preventDefault();
-        var jenis_kendaraan_id = $("#jenis_kendaraan_id").val();
-        var nama_kendaraan = $("#nama_kendaraan").val();
+        var jenis_kendaraan = $("#jenis_kendaraan").val();
         $.ajax({
-            url: "save/k_kendaraan",
+            url: "save/jenis_kendaraan",
             type: 'post',
             dataType: 'json',
             data: {
-                jenis_kendaraan_id: jenis_kendaraan_id,
-                nama_kendaraan: nama_kendaraan,
+                jenis_kendaraan: jenis_kendaraan,
             },
             beforeSend: function(e) {
                 $(this).html('<i class="fas fa-spinner fa-pulse"> </i> ')
@@ -187,18 +168,11 @@
             success: function(response) {
                 $(this).html('<i class="fa fa-check"> </i> Kirim')
                 if (response.error) {
-                    if (response.error.jenis_kendaraan_id) {
-                        $("#jenis_kendaraan_id").addClass('is-invalid');
-                        $("#errorJenisKendaraan").html(response.error.jenis_kendaraan_id);
+                    if (response.error.jenis_kendaraan) {
+                        $("#jenis_kendaraan").addClass('is-invalid');
+                        $("#errorKendaraan").html(response.error.jenis_kendaraan);
                     } else {
-                        $("#jenis_kendaraan_id").removeClass('is-invalid');
-                        $("#errorJenisKendaraan").html('');
-                    }
-                    if (response.error.nama_kendaraan) {
-                        $("#nama_kendaraan").addClass('is-invalid');
-                        $("#errorKendaraan").html(response.error.nama_kendaraan);
-                    } else {
-                        $("#nama_kendaraan").removeClass('is-invalid');
+                        $("#jenis_kendaraan").removeClass('is-invalid');
                         $("#errorKendaraan").html('');
                     }
                 } else {
@@ -207,7 +181,7 @@
                         title: `${response.success}`,
                         icon: 'success'
                     })
-                    setInterval(() => {
+                    setTimeout(() => {
                         document.location.reload();
                     }, 700);
                 }
@@ -222,7 +196,7 @@
         $(".update").css('display', 'block').removeAttr('disabled', 'disabled');
         $(".save").css('display', 'none').attr('disabled', 'disabled');
         $.ajax({
-            url: 'edit/k_kendaraan',
+            url: 'edit/jenis_kendaraan',
             type: 'GET',
             data: {
                 id: id
@@ -230,13 +204,8 @@
             dataType: 'json',
             success: function(response) {
                 $("#id").val(response.id);
-
-                $("#jenis_kendaraan_id").val(response.jenis_kendaraan_id);
-                $("#jenis_kendaraan_id").removeClass('is-invalid');
-                $("#errorJenisKendaraan").html('');
-
-                $("#nama_kendaraan").val(response.nama_kendaraan);
-                $("#nama_kendaraan").removeClass('is-invalid');
+                $("#jenis_kendaraan").val(response.jenis_kendaraan);
+                $("#jenis_kendaraan").removeClass('is-invalid');
                 $("#errorKendaraan").html('');
             }
         });
@@ -244,17 +213,15 @@
 
     $(".update").click(function(e) {
         e.preventDefault();
-        var id = $("#id").val();
-        var jenis_kendaraan_id = $("#jenis_kendaraan_id").val();
-        var nama_kendaraan = $("#nama_kendaraan").val();
+        let id = $("#id").val();
+        let jenis_kendaraan = $("#jenis_kendaraan").val();
         $.ajax({
-            url: 'update/k_kendaraan',
+            url: 'update/jenis_kendaraan',
             dataType: 'json',
             type: 'post',
             data: {
                 id: id,
-                jenis_kendaraan_id: jenis_kendaraan_id,
-                nama_kendaraan: nama_kendaraan,
+                jenis_kendaraan: jenis_kendaraan,
             },
             beforeSend: function(e) {
                 $(this).html('<i class="fas fa-spinner fa-pulse"> </i>')
@@ -265,7 +232,7 @@
                     title: `${response.success}`,
                     icon: 'success',
                 })
-                setInterval(() => {
+                setTimeout(() => {
                     document.location.reload()
                 }, 700);
             }
@@ -274,11 +241,11 @@
 
     $(".delete-data").click(function(e) {
         e.preventDefault();
-        $(".modal-title").html('Hapus Klasifikasi Kendaraan');
+        $(".modal-title").html('Hapus Jenis Kendaraan');
         var id = $(this).data('id');
         // alert(id);
         $.ajax({
-            url: 'edit/k_kendaraan',
+            url: 'edit/jenis_kendaraan',
             type: 'GET',
             data: {
                 id: id
@@ -294,7 +261,7 @@
         e.preventDefault();
         var id = $("#id_delete").val();
         $.ajax({
-            url: 'delete/k_kendaraan',
+            url: 'delete/jenis_kendaraan',
             dataType: 'json',
             type: 'post',
             data: {

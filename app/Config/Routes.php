@@ -49,6 +49,13 @@ $routes->group('admin', function ($routes) {
     $routes->post('update/jenis_penindakan', 'Admin\Penindakan::update');
     $routes->post('delete/jenis_penindakan', 'Admin\Penindakan::delete');
 
+    //Jenis_Kendaraan
+    $routes->get('jenis_kendaraan', 'Admin\JenisKendaraan::index');
+    $routes->post('save/jenis_kendaraan', 'Admin\JenisKendaraan::save');
+    $routes->get('edit/jenis_kendaraan', 'Admin\JenisKendaraan::edit');
+    $routes->post('update/jenis_kendaraan', 'Admin\JenisKendaraan::update');
+    $routes->post('delete/jenis_kendaraan', 'Admin\JenisKendaraan::delete');
+
     //K_Kendaraan
     $routes->get('k_kendaraan', 'Admin\Kendaraan::index');
     $routes->post('save/k_kendaraan', 'Admin\Kendaraan::save');
@@ -140,6 +147,7 @@ $routes->get('/petugas/bap', 'Petugas\BapController::index');
 $routes->get('/petugas/laporanPenindakan', 'Petugas\LaporanPenindakan::index');
 $routes->get('/petugas/tambah_penindakan/(:num)', 'Petugas\LaporanPenindakan::add_penindakan/$1');
 $routes->post('/petugas/laporanPenindakan/getPoolPenyimpanan', 'Petugas\LaporanPenindakan::getPoolPenyimpanan');
+$routes->post('/petugas/laporanPenindakan/getKlasifikasiKendaraan', 'Petugas\LaporanPenindakan::getKlasifikasiKendaraan');
 $routes->post('/petugas/laporanPenindakan/getTypeKendaraan', 'Petugas\LaporanPenindakan::getTypeKendaraan');
 $routes->post('/petugas/laporanPenindakan/save', 'Petugas\LaporanPenindakan::save');
 

@@ -4,6 +4,7 @@ namespace App\Controllers\Petugas;
 
 use App\Controllers\Admin\PoolPenyimpanan;
 use App\Controllers\BaseController;
+use App\Models\Admin\JenisKendaraanModel;
 use App\Models\Admin\JenisPelanggaranModel;
 use App\Models\Admin\Kecamatan;
 use App\Models\Admin\KelurahanModel;
@@ -32,6 +33,7 @@ class LaporanPenindakan extends BaseController
     protected $jenisPelanggaranModel;
     protected $lokasiSidangModel;
     protected $klasifikasiKendaraanModel;
+    protected $JenisKendaraanModel;
     protected $poolPenyimpananModel;
     protected $typeKendaraanModel;
     protected $jenisPenindakanModel;
@@ -47,6 +49,7 @@ class LaporanPenindakan extends BaseController
         $this->jenisPelanggaranModel = new JenisPelanggaranModel();
         $this->lokasiSidangModel = new LokasiSidangModel();
         $this->klasifikasiKendaraanModel = new KendaraanModel();
+        $this->JenisKendaraanModel = new JenisKendaraanModel();
         $this->typeKendaraanModel = new TypeKendaraanModel();
         $this->penindakanModel = new PenindakanModel();
         $this->poolPenyimpananModel = new PoolPenyimpananModel();
@@ -88,6 +91,7 @@ class LaporanPenindakan extends BaseController
             'kota' => $this->kotaModel->findAll(),
             'kecamatan' => $this->kecamatanModel->findAll(),
             'kelurahan' => $this->kelurahanModel->findAll(),
+            'jenis_kendaraan' => $this->JenisKendaraanModel->findAll(),
         ];
 
         return view('petugas/laporanPenindakan', $data);
@@ -104,6 +108,7 @@ class LaporanPenindakan extends BaseController
             'pasal_pelanggaran' => $this->pasalPelanggaranModel->findAll(),
             'lokasi_sidang' => $this->lokasiSidangModel->findAll(),
             'klasifikasi_kendaraan' => $this->klasifikasiKendaraanModel->findAll(),
+            'jenis_kendaraan' => $this->JenisKendaraanModel->findAll(),
             'provinsi' => $this->provinsiModel->findAll(),
             'kota' => $this->kotaModel->findAll(),
             'kecamatan' => $this->kecamatanModel->findAll(),
@@ -124,6 +129,12 @@ class LaporanPenindakan extends BaseController
                     'rules' => 'required',
                     'errors' => [
                         'required' => 'Jenis Penindakan Tidak Boleh Kosong!'
+                    ]
+                ],
+                'jenis_kendaraan_id' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jenis Kendaraan Tidak Boleh Kosong!'
                     ]
                 ],
                 'klasifikasi_id' => [
@@ -192,6 +203,7 @@ class LaporanPenindakan extends BaseController
                 $messeage = [
                     'error' => [
                         'penindakan_id' => $this->validation->getError('penindakan_id'),
+                        'jenis_kendaraan_id' => $this->validation->getError('jenis_kendaraan_id'),
                         'klasifikasi_id' => $this->validation->getError('klasifikasi_id'),
                         'kendaraan_id' => $this->validation->getError('kendaraan_id'),
                         'bap_id' => $this->validation->getError('bap_id'),
@@ -207,6 +219,7 @@ class LaporanPenindakan extends BaseController
             } else {
                 $ukpd_id = $this->request->getVar('ukpd_id');
                 $penindakan_id = $this->request->getVar('penindakan_id');
+                $jenis_kendaraan_id = $this->request->getVar('jenis_kendaraan_id');
                 $klasifikasi_id = $this->request->getVar('klasifikasi_id');
                 $kendaraan_id = $this->request->getVar('kendaraan_id');
                 $bap_id = $this->request->getVar('bap_id');
@@ -233,6 +246,7 @@ class LaporanPenindakan extends BaseController
                 $this->laporanPenindakanModel->save([
                     'ukpd_id' => $ukpd_id,
                     'penindakan_id' => $penindakan_id,
+                    'jenis_kendaraan_id' => $jenis_kendaraan_id,
                     'klasifikasi_id' => $klasifikasi_id,
                     'kendaraan_id' => $kendaraan_id,
                     'bap_id' => $bap_id,
@@ -288,6 +302,25 @@ class LaporanPenindakan extends BaseController
                 'laporanPenindakan' => $laporanPenindakan
             ];
 
+            return json_encode($data);
+        }
+    }
+
+    public function getKlasifikasiKendaraan()
+    {
+        if ($this->request->isAJAX()) {
+            $jenis_kendaraan_id = $this->request->getVar('jenis_kendaraan_id');
+
+            // $klasifikasi_id = $this->request->getVar('klasifikasi_id');
+
+            // $laporanPenindakan = $this->laporanPenindakanModel->where(["id" => $id])->first();
+
+            $klasifikasi_kendaraan = $this->klasifikasiKendaraanModel->where(["jenis_kendaraan_id" => $jenis_kendaraan_id])->findAll();
+
+            $data = [
+                'klasifikasi_kendaraan' => $klasifikasi_kendaraan,
+                // 'laporanPenindakan' => $laporanPenindakan
+            ];
             return json_encode($data);
         }
     }

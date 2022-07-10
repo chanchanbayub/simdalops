@@ -53,6 +53,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="/admin/jenis_kendaraan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jenis Kendaraan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/admin/k_kendaraan" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Klasifikasi Kendaraan</p>

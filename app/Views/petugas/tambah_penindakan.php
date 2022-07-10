@@ -53,12 +53,20 @@
                                             <small id="errorPenindakan" class="text-danger"></small>
                                         </div>
                                         <div class="form-group">
-                                            <label for="klasifikasi_id" class="col-form-label">Jenis Kendaraan : </label>
-                                            <select name="klasifikasi_id" style="width: 100%;" id="klasifikasi_id" class="form-control">
+                                            <label for="jenis_kendaran_id" class="col-form-label">Jenis Kendaraan : </label>
+                                            <select name="jenis_kendaraan_id" style="width: 100%;" id="jenis_kendaraan_id" class="form-control">
                                                 <option value=""> -- Silahkan Pilih -- </option>
-                                                <?php foreach ($klasifikasi_kendaraan as $klasifikasi) : ?>
-                                                    <option value="<?= $klasifikasi["id"] ?>"><?= $klasifikasi["nama_kendaraan"] ?></option>
+                                                <?php foreach ($jenis_kendaraan as $jenis_kendaraan) : ?>
+                                                    <option value="<?= $jenis_kendaraan["id"] ?>"><?= $jenis_kendaraan["jenis_kendaraan"] ?></option>
                                                 <?php endforeach; ?>
+                                            </select>
+                                            <small id="errorJenisKendaraan" class="text-danger"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="klasifikasi_id" class="col-form-label">Klasifikasi Kendaraan : </label>
+                                            <select name="klasifikasi_id" style="width: 100%;" id="klasifikasi_id" class="form-control" disabled>
+                                                <option value=""> -- Silahkan Pilih -- </option>
+
                                             </select>
                                             <small id="errorKlasifikasi" class="text-danger"></small>
                                         </div>
@@ -227,6 +235,9 @@
             theme: "bootstrap4",
         });
 
+        $("#jenis_kendaraan_id").select2({
+            theme: 'bootstrap4'
+        });
         $("#klasifikasi_id").select2({
             theme: 'bootstrap4'
         });
@@ -371,6 +382,33 @@
         });
     });
 
+    $("#jenis_kendaraan_id").change(function(e) {
+        let jenis_kendaraan_id = $(this).val();
+        $.ajax({
+            url: '/petugas/laporanPenindakan/getKlasifikasiKendaraan',
+            dataType: 'json',
+            data: {
+                jenis_kendaraan_id: jenis_kendaraan_id
+            },
+            type: 'post',
+            success: function(response) {
+                // console.log(response);
+                let klasifikasi_kendaraan = '<option value=""> -- Silahkan Pilih -- </option>';
+                if (response.klasifikasi_kendaraan.length > 0) {
+                    $("#klasifikasi_id").removeAttr('disabled', 'disabled');
+                    response.klasifikasi_kendaraan.forEach((e) => {
+                        klasifikasi_kendaraan += `<option value="${e.id}"> ${e.nama_kendaraan} </option>`;
+                    });
+                    $("#klasifikasi_id").html(klasifikasi_kendaraan);
+                } else {
+                    $("#klasifikasi_id").attr('disabled', 'disabled');
+                    klasifikasi_kendaraan += '<option value=""> -- Silahkan Pilih -- </option>';
+                }
+                $("#klasifikasi_id").html(klasifikasi_kendaraan);
+            }
+        });
+    });
+
     $("#klasifikasi_id").change(function(e) {
         let klasifikasi_id = $(this).val();
         $.ajax({
@@ -401,6 +439,7 @@
         e.preventDefault();
         let ukpd_id = <?= session('ukpd_id') ?>;
         let penindakan_id = $("#penindakan_id").val();
+        let jenis_kendaraan_id = $("#jenis_kendaraan_id").val();
         let klasifikasi_id = $("#klasifikasi_id").val();
         let kendaraan_id = $("#kendaraan_id").val();
         let noBap = $("#bap_id").val();
@@ -424,6 +463,7 @@
         let formData = new FormData(this);
         formData.append('ukpd_id', ukpd_id);
         formData.append('penindakan_id', penindakan_id);
+        formData.append('jenis_kendaraan_id', jenis_kendaraan_id);
         formData.append('klasifikasi_id', klasifikasi_id);
         formData.append('kendaraan_id', kendaraan_id);
         formData.append('bap_id', noBap);
@@ -478,6 +518,13 @@
                     } else {
                         $("#penindakan_id").removeClass('is-invalid');
                         $("#errorPenindakan").html('');
+                    }
+                    if (response.error.jenis_kendaraan_id) {
+                        $("#jenis_kendaraan_id").addClass('is-invalid');
+                        $("#errorJenisKendaraan").html(response.error.jenis_kendaraan_id);
+                    } else {
+                        $("#jenis_kendaraan_id").removeClass('is-invalid');
+                        $("#errorJenisKendaraan").html('');
                     }
                     if (response.error.klasifikasi_id) {
                         $("#klasifikasi_id").addClass('is-invalid');

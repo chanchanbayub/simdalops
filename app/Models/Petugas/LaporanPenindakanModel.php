@@ -10,14 +10,14 @@ class LaporanPenindakanModel extends Model
     protected $table                = 'laporan_penindakan';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
-    protected $allowedFields        = ['ukpd_id', 'bap_id', 'penindakan_id', 'klasifikasi_id', 'kendaraan_id', 'tanggal_penindakan', 'tanggal_sidang', 'lokasi_sidang_id', 'jam_penindakan', 'nopol', 'pasal_pelanggaran_id', 'lokasi_pelanggaran', 'barang_bukti', 'pool_id', 'nama_pelanggar', 'tanggal_masuk_bap', 'alamat_pelanggar', 'warna_tnkb', 'tahun_perakitan', 'nomor_rangka', 'nama_pemilik', 'alamat_pemilik', 'foto'];
+    protected $allowedFields        = ['ukpd_id', 'bap_id', 'penindakan_id', 'jenis_kendaraan_id', 'klasifikasi_id', 'kendaraan_id', 'tanggal_penindakan', 'tanggal_sidang', 'lokasi_sidang_id', 'jam_penindakan', 'nopol', 'pasal_pelanggaran_id', 'lokasi_pelanggaran', 'barang_bukti', 'pool_id', 'nama_pelanggar', 'tanggal_masuk_bap', 'alamat_pelanggar', 'warna_tnkb', 'tahun_perakitan', 'nomor_rangka', 'nama_pemilik', 'alamat_pemilik', 'foto'];
     // Dates
     protected $useTimestamps        = true;
     protected $dateFormat           = 'datetime';
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
 
-    protected $fieldTable = 'laporan_penindakan.id,laporan_penindakan.ukpd_id, laporan_penindakan.bap_id, laporan_penindakan.penindakan_id, laporan_penindakan.klasifikasi_id, kendaraan_id, tanggal_penindakan, tanggal_sidang, lokasi_sidang_id, jam_penindakan, nopol, pasal_pelanggaran_id, lokasi_pelanggaran, barang_bukti, pool_id, nama_pelanggar, alamat_pelanggar, warna_tnkb, tahun_perakitan, nomor_rangka, nama_pemilik, alamat_pemilik, foto, bap.noBap, bap.unit_id, unit_penindak.unit_penindak, lokasi_sidang.lokasi_sidang, lokasi_sidang.jalan, lokasi_sidang.jam, pasal_pelanggaran.pasal_pelanggaran, jenispenindakan.nama_penindakan, poolpenyimpanan.nama_terminal, klasifikasi_kendaraan.nama_kendaraan, pasal_pelanggaran.keterangan, bap.nama_petugas';
+    protected $fieldTable = 'laporan_penindakan.id,laporan_penindakan.ukpd_id, laporan_penindakan.bap_id, laporan_penindakan.penindakan_id,laporan_penindakan.jenis_kendaraaan_id ,laporan_penindakan.klasifikasi_id, kendaraan_id, tanggal_penindakan, tanggal_sidang, lokasi_sidang_id, jam_penindakan, nopol, pasal_pelanggaran_id, lokasi_pelanggaran, barang_bukti, pool_id, nama_pelanggar, alamat_pelanggar, warna_tnkb, tahun_perakitan, nomor_rangka, nama_pemilik, alamat_pemilik, foto, bap.noBap, bap.unit_id, unit_penindak.unit_penindak, lokasi_sidang.lokasi_sidang, lokasi_sidang.jalan, lokasi_sidang.jam, pasal_pelanggaran.pasal_pelanggaran, jenispenindakan.nama_penindakan, poolpenyimpanan.nama_terminal, klasifikasi_kendaraan.nama_kendaraan, pasal_pelanggaran.keterangan, bap.nama_petugas, jenis_kendaraan.jenis_kendaraan';
 
 
     public function getLaporanPenindakan($now, $unit_id)

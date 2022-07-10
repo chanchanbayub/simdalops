@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Kendaraan extends Migration
+class JenisKendaraan extends Migration
 {
     public function up()
     {
@@ -15,13 +15,7 @@ class Kendaraan extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'jenis_kendaraan_id' => [
-                'type' => 'INT',
-                'constraint' => 100,
-                'null' => true,
-                'unsigned' => true,
-            ],
-            'nama_kendaraan' => [
+            'jenis_kendaraan' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
                 'null' => true
@@ -36,13 +30,12 @@ class Kendaraan extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('jenis_kendaraan_id', 'jenis_kendaraan', 'id', 'CASCADE', 'CASCADE');
         $attributes = ['ENGINE' => 'InnoDB'];
-        $this->forge->createTable('klasifikasi_kendaraan', false, $attributes);
+        $this->forge->createTable('jenis_kendaraan', false, $attributes);
     }
 
     public function down()
     {
-        $this->forge->dropTable('klasifikasi_kendaraan');
+        $this->forge->dropTable('jenis_kendaraan');
     }
 }
