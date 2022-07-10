@@ -23,6 +23,7 @@ class LokasiSidang extends BaseController
     {
         $currentPage = $this->request->getVar('page_lokasi_sidang') ? $this->request->getVar('page_lokasi_sidang') : 1;
         $lokasi_sidang = $this->lokasiSidangModel->getLokasiSidang();
+        // dd($lokasi_sidang);
 
         $data = [
             'title' => 'Lokasi Sidang',
@@ -50,6 +51,18 @@ class LokasiSidang extends BaseController
                     'errors' => [
                         'required' => 'Lokasi Sidang Tidak Boleh Kosong'
                     ]
+                ],
+                'jalan' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jalan Tidak Boleh Kosong'
+                    ]
+                ],
+                'jam' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Jam Sidang Tidak Boleh Kosong'
+                    ]
                 ]
 
             ])) {
@@ -57,15 +70,21 @@ class LokasiSidang extends BaseController
                     'error' => [
                         'ukpd_id' => $this->validation->getError('ukpd_id'),
                         'lokasi_sidang' => $this->validation->getError('lokasi_sidang'),
+                        'jalan' => $this->validation->getError('jalan'),
+                        'jam' => $this->validation->getError('jam'),
                     ],
                 ];
             } else {
                 $ukpd_id = $this->request->getVar('ukpd_id');
                 $lokasi_sidang = $this->request->getVar('lokasi_sidang');
+                $jalan = $this->request->getVar('jalan');
+                $jam = $this->request->getVar('jam');
 
                 $this->lokasiSidangModel->save([
                     'ukpd_id' => $ukpd_id,
-                    'lokasi_sidang' => ucwords($lokasi_sidang)
+                    'lokasi_sidang' => ucwords($lokasi_sidang),
+                    'jalan' => ucwords($jalan),
+                    'jam' => $jam,
                 ]);
 
                 $messeage = [
@@ -93,11 +112,15 @@ class LokasiSidang extends BaseController
             $id = $this->request->getVar('id');
             $ukpd_id = $this->request->getVar('ukpd_id');
             $lokasi_sidang = $this->request->getVar('lokasi_sidang');
+            $jalan = $this->request->getVar('jalan');
+            $jam = $this->request->getVar('jam');
 
             $this->lokasiSidangModel->update($id, [
                 'id' => $id,
                 'ukpd_id' => $ukpd_id,
-                'lokasi_sidang' => $lokasi_sidang
+                'lokasi_sidang' => $lokasi_sidang,
+                'jalan' => ucwords($jalan),
+                'jam' => $jam
             ]);
 
             $messeage = [

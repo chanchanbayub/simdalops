@@ -41,6 +41,8 @@
                                         <th>No </th>
                                         <th>UKPD</th>
                                         <th>Lokasi Sidang</th>
+                                        <th>Jalan Lokasi Sidang</th>
+                                        <th>Jam Sidang</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -52,6 +54,8 @@
                                                 <td><?= $no++ ?>.</td>
                                                 <td><?= $lokasi_sidang["ukpd"] ?></td>
                                                 <td><?= $lokasi_sidang["lokasi_sidang"] ?></td>
+                                                <td><?= $lokasi_sidang["jalan"] ?></td>
+                                                <td><?= $lokasi_sidang["jam"] ?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-inline bg-gradient-warning btn-sm edit" data-toggle="modal" data-target="#add-lokasi" data-id="<?= $lokasi_sidang["id"] ?>"> <i class="fa fa-edit"></i></button>
                                                     <button type="button" data-toggle="modal" data-target="#delete-lokasi" data-id="<?= $lokasi_sidang["id"] ?>" class="btn btn-inline bg-gradient-danger btn-sm delete-data"> <i class="fa fa-trash"></i></button>
@@ -104,6 +108,16 @@
                         <label for="lokasi_sidang" class="col-form-label">Lokasi Sidang : </label>
                         <input type="text" style="text-transform: capitalize;" class="form-control" id="lokasi_sidang" name="lokasi_sidang" placeholder="Masukan Lokasi Sidang">
                         <small id="errorLokasi" class="text-danger"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="jalan" class="col-form-label">Jalan : </label>
+                        <input type="text" style="text-transform: capitalize;" class="form-control" id="jalan" name="jalan" placeholder="Masukan Lokasi Jalan Sidang">
+                        <small id="errorJalan" class="text-danger"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="jam" class="col-form-label">Jam : </label>
+                        <input type="time" style="text-transform: capitalize;" class="form-control" id="jam" name="jam" placeholder="Masukan Jam Sidang">
+                        <small id="errorJam" class="text-danger"></small>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"> <i class="fa fa-window-close"></i> Batal</button>
@@ -162,6 +176,8 @@
         $("#id").val('');
         $("#ukpd_id").val('');
         $("#lokasi_sidang").val('');
+        $("#jalan").val('');
+        $("#jam").val('');
         $(".update").css('display', 'none')
         $(".update").attr('disabled', 'disabled')
         $(".save").css('display', 'block')
@@ -173,13 +189,17 @@
         e.preventDefault();
         var ukpd_id = $("#ukpd_id").val();
         var lokasi_sidang = $("#lokasi_sidang").val();
+        var jalan = $("#jalan").val();
+        var jam = $("#jam").val();
         $.ajax({
             url: "save/lokasi_sidang",
             type: 'post',
             dataType: 'json',
             data: {
                 ukpd_id: ukpd_id,
-                lokasi_sidang: lokasi_sidang
+                lokasi_sidang: lokasi_sidang,
+                jalan: jalan,
+                jam: jam
             },
             beforeSend: function(e) {
                 $(this).html('<i class="fas fa-spinner fa-pulse"> </i> ')
@@ -201,6 +221,20 @@
                     } else {
                         $("#lokasi_sidang").removeClass('is-invalid');
                         $("#errorLokasi").html('');
+                    }
+                    if (response.error.jalan) {
+                        $("#jalan").addClass('is-invalid');
+                        $("#errorJalan").html(response.error.jalan);
+                    } else {
+                        $("#jalan").removeClass('is-invalid');
+                        $("#errorJalan").html('');
+                    }
+                    if (response.error.jam) {
+                        $("#jam").addClass('is-invalid');
+                        $("#errorJam").html(response.error.jam);
+                    } else {
+                        $("#jam").removeClass('is-invalid');
+                        $("#errorJam").html('');
                     }
                 } else {
                     // $("#add-ukpd").modal('hide');
@@ -237,9 +271,18 @@
                 $("#ukpd_id").val(response.ukpd_id).trigger('change');
                 $("#ukpd_id").removeClass('is-invalid');
                 $("#errorUKPD").html('');
+
                 $("#lokasi_sidang").val(response.lokasi_sidang);
                 $("#lokasi_sidang").removeClass('is-invalid');
                 $("#errorLokasi").html('');
+
+                $("#jalan").val(response.jalan);
+                $("#jalan").removeClass('is-invalid');
+                $("#errorJalan").html('');
+
+                $("#jam").val(response.jam);
+                $("#jam").removeClass('is-invalid');
+                $("#errorJam").html('');
             }
         });
     })
@@ -249,6 +292,8 @@
         var id = $("#id").val();
         var ukpd_id = $("#ukpd_id").val();
         var lokasi_sidang = $("#lokasi_sidang").val();
+        var jalan = $("#jalan").val();
+        var jam = $("#jam").val();
         $.ajax({
             url: 'update/lokasi_sidang',
             dataType: 'json',
@@ -256,7 +301,9 @@
             data: {
                 id: id,
                 ukpd_id: ukpd_id,
-                lokasi_sidang: lokasi_sidang
+                lokasi_sidang: lokasi_sidang,
+                jalan: jalan,
+                jam: jam
             },
             beforeSend: function(e) {
                 $(this).html('<i class="fas fa-spinner fa-pulse"> </i>')

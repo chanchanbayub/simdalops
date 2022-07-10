@@ -9,7 +9,7 @@ class LokasiSidangModel extends Model
     protected $table                = 'lokasi_sidang';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
-    protected $allowedFields        = ['ukpd_id', 'lokasi_sidang'];
+    protected $allowedFields        = ['ukpd_id', 'lokasi_sidang', 'jalan', 'jam'];
 
     // Dates
     protected $useTimestamps        = true;
@@ -20,7 +20,7 @@ class LokasiSidangModel extends Model
     public function getLokasiSidang()
     {
         $this->table($this->table)
-            ->select('lokasi_sidang.id, lokasi_sidang.ukpd_id, lokasi_sidang, ukpd.ukpd')
+            ->select('lokasi_sidang.id, lokasi_sidang.ukpd_id, lokasi_sidang, ukpd.ukpd,lokasi_sidang.jalan, lokasi_sidang.jam')
             ->join('ukpd', 'ukpd.id = lokasi_sidang.ukpd_id')
             ->orderBy('lokasi_sidang.id DESC');
 
