@@ -311,15 +311,20 @@ class LaporanPenindakan extends BaseController
         if ($this->request->isAJAX()) {
             $jenis_kendaraan_id = $this->request->getVar('jenis_kendaraan_id');
 
-            // $klasifikasi_id = $this->request->getVar('klasifikasi_id');
+            $id = $this->request->getVar('id');
 
-            // $laporanPenindakan = $this->laporanPenindakanModel->where(["id" => $id])->first();
+            // $type_kendaraan = $this->request->getVar('klasifikasi_id');
+
+            $laporanPenindakan = $this->laporanPenindakanModel->where(["id" => $id])->first();
 
             $klasifikasi_kendaraan = $this->klasifikasiKendaraanModel->where(["jenis_kendaraan_id" => $jenis_kendaraan_id])->findAll();
 
+            // $typeKendaraan = $this->typeKendaraanModel->where(["klasifikasi_id" => $type_kendaraan])->findAll();
+
             $data = [
                 'klasifikasi_kendaraan' => $klasifikasi_kendaraan,
-                // 'laporanPenindakan' => $laporanPenindakan
+                'laporanPenindakan' => $laporanPenindakan,
+                // 'type_kendaraan' => $typeKendaraan
             ];
             return json_encode($data);
         }
@@ -422,6 +427,7 @@ class LaporanPenindakan extends BaseController
             $id = $this->request->getVar('id');
             $bap_id = $this->request->getVar('bap_id');
             $penindakan_id = $this->request->getPost('penindakan_id');
+            $jenis_kendaraan_id = $this->request->getPost('jenis_kendaraan_id');
             $klasifikasi_id = $this->request->getVar('klasifikasi_id');
             $kendaraan_id = $this->request->getVar('kendaraan_id');
             $nopol = $this->request->getVar('nopol');
@@ -437,6 +443,7 @@ class LaporanPenindakan extends BaseController
                 'id' => $id,
                 'bap_id' => $bap_id,
                 'penindakan_id' => $penindakan_id,
+                'jenis_kendaraan_id' => $jenis_kendaraan_id,
                 'klasifikasi_id' => $klasifikasi_id,
                 'kendaraan_id' => $kendaraan_id,
                 'nopol' => strtoupper($nopol),

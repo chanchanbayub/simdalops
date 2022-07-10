@@ -150,8 +150,8 @@
                     <?= csrf_field(); ?>
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="text" name="id" id="id">
-                            <input type="text" name="bap_id" id="bap_id">
+                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" name="bap_id" id="bap_id">
                             <div class=" form-group">
                                 <label for="ukpd_id"> UKPD : </label>
                                 <input type="text" name="ukpd_id" id="ukpd_id" class="form-control" value=" <?= session('ukpd') ?>" readonly>
@@ -171,6 +171,16 @@
                                 <small id="errorPenindakan" class="text-danger"></small>
                             </div>
                             <div class="form-group">
+                                <label for="jenis_kendaran_id" class="col-form-label">Jenis Kendaraan : </label>
+                                <select name="jenis_kendaraan_id" style="width: 100%;" id="jenis_kendaraan_id" class="form-control">
+                                    <option value=""> -- Silahkan Pilih -- </option>
+                                    <?php foreach ($jenis_kendaraan as $jenis_kendaraan) : ?>
+                                        <option value="<?= $jenis_kendaraan["id"] ?>"><?= $jenis_kendaraan["jenis_kendaraan"] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <small id="errorJenisKendaraan" class="text-danger"></small>
+                            </div>
+                            <div class="form-group">
                                 <label for="klasifikasi_id" class="col-form-label">Klasifikasi Kendaraan : </label>
                                 <select name="klasifikasi_id" style="width: 100%;" id="klasifikasi_id" class="form-control">
                                     <option value=""> -- Silahkan Pilih -- </option>
@@ -184,6 +194,9 @@
                                 <label for="kendaraan_id" class="col-form-label">Type Kendaraan : </label>
                                 <select name="kendaraan_id" style="width: 100%;" id="kendaraan_id" class="form-control">
                                     <option value="">Silahkan Pilih</option>
+                                    <?php foreach ($type_kendaraan as $type_kendaraan) : ?>
+                                        <option value="<?= $type_kendaraan["id"] ?>"> <?= $type_kendaraan["type_kendaraan"] ?> </option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <small id="errorKendaraan" class="text-danger"></small>
                             </div>
@@ -271,6 +284,9 @@
         $("#pool_id").select2({
             theme: 'bootstrap4'
         });
+        $("#jenis_kendaraan_id").select2({
+            theme: 'bootstrap4'
+        });
         $("#kendaraan_id").select2({
             theme: 'bootstrap4'
         });
@@ -308,9 +324,45 @@
         });
     });
 
-    $("#klasifikasi_id").change(function(e) {
-        let klasifikasi_id = $(this).val();
+    $("#jenis_kendaraan_id").change(function(e) {
         let id = $("#id").val();
+        let jenis_kendaraan_id = $(this).val();
+        let klasifikasi_id = $('#klasifikasi_id').val();
+        // getTypeKendaraan();
+        $.ajax({
+            url: '/petugas/laporanPenindakan/getKlasifikasiKendaraan',
+            dataType: 'json',
+            data: {
+                id: id,
+                jenis_kendaraan_id: jenis_kendaraan_id,
+                klasifikasi_id: klasifikasi_id
+            },
+            type: 'post',
+            success: function(response) {
+                console.log(response);
+                let klasifikasi_kendaraan = '<option value=""> -- Silahkan Pilih -- </option>';
+                if (response.klasifikasi_kendaraan.length > 0) {
+                    $("#klasifikasi_id").removeAttr('disabled', 'disabled');
+                    response.klasifikasi_kendaraan.forEach((e) => {
+                        if (e.id == response.laporanPenindakan.klasifikasi_id) {
+                            klasifikasi_kendaraan += `<option value="${e.id}" selected> ${e.nama_kendaraan} </option>`;
+                        } else {
+                            klasifikasi_kendaraan += `<option value="${e.id}" > ${e.nama_kendaraan} </option>`;
+                        }
+                    });
+                    $("#klasifikasi_id").html(klasifikasi_kendaraan);
+                } else {
+                    $("#klasifikasi_id").attr('disabled', 'disabled');
+                    klasifikasi_kendaraan += '<option value=""> -- Silahkan Pilih -- </option>';
+                }
+                $("#klasifikasi_id").html(klasifikasi_kendaraan);
+            }
+        });
+    });
+
+    $("#klasifikasi_id").change(function(e) {
+        let id = $("#id").val();
+        let klasifikasi_id = $(this).val();
         $.ajax({
             url: '/petugas/laporanPenindakan/getTypeKendaraan',
             dataType: 'json',
@@ -320,11 +372,12 @@
             },
             type: 'post',
             success: function(response) {
+                console.log(response);
                 let type_kendaraan = '<option value=""> -- Silahkan Pilih -- </option>';
                 if (response.type_kendaraan.length > 0) {
                     $("#kendaraan_id").removeAttr('disabled', 'disabled');
                     response.type_kendaraan.forEach((e) => {
-                        if (e.id === response.laporanPenindakan.kendaraan_id) {
+                        if (e.id == response.laporanPenindakan.kendaraan_id) {
                             type_kendaraan += `<option value="${e.id}" selected> ${e.type_kendaraan} </option>`;
                         } else {
                             type_kendaraan += `<option value="${e.id}"> ${e.type_kendaraan} </option>`;
@@ -339,6 +392,7 @@
                 $("#kendaraan_id").html(type_kendaraan);
             }
         });
+
     });
 
     $('.btn-delete').click(function(e) {
@@ -394,19 +448,21 @@
                 id: id
             },
             success: function(response) {
+                // console.log(response);
                 $("#id").val(response.laporanPenindakan.id);
                 $("#bap_id").val(response.laporanPenindakan.bap_id);
                 $("#noBap").val(response.laporanPenindakan.noBap);
                 $("#unit_id").val(response.laporanPenindakan.unit_penindak);
                 $("#lokasi_pelanggaran").val(response.laporanPenindakan.lokasi_pelanggaran);
                 $("#penindakan_id").val(response.laporanPenindakan.penindakan_id).trigger("change");
-                $("#klasifikasi_id").val(response.laporanPenindakan.klasifikasi_id).trigger("change");
+                $("#jenis_kendaraan_id").val(response.laporanPenindakan.jenis_kendaraan_id).trigger("change");
                 $("#tanggal_sidang").val(response.laporanPenindakan.tanggal_sidang);
                 $("#lokasi_sidang_id").val(response.laporanPenindakan.lokasi_sidang_id).trigger('change');
                 $("#nopol").val(response.laporanPenindakan.nopol);
                 $("#pasal_pelanggaran_id").val(response.laporanPenindakan.pasal_pelanggaran_id).trigger('change');
                 $("#nama_pelanggar").val(response.laporanPenindakan.nama_pelanggar);
                 $("#alamat_pelanggar").val(response.laporanPenindakan.alamat_pelanggar);
+                $("#kendaraan_id").val(response.laporanPenindakan.kendaraan_id).trigger('change');
             }
         });
     });
@@ -416,6 +472,7 @@
         let id = $("#id").val();
         let bap_id = $("#bap_id").val();
         let penindakan_id = $("#penindakan_id").val();
+        let jenis_kendaraan_id = $("#jenis_kendaraan_id").val();
         let klasifikasi_id = $("#klasifikasi_id").val();
         let kendaraan_id = $("#kendaraan_id").val();
         let nopol = $("#nopol").val();
@@ -431,6 +488,7 @@
 
         formData.append('id', id);
         formData.append('penindakan_id', penindakan_id);
+        formData.append('jenis_kendaraan_id', jenis_kendaraan_id);
         formData.append('klasifikasi_id', klasifikasi_id);
         formData.append('kendaraan_id', kendaraan_id);
         formData.append('bap_id', bap_id);
