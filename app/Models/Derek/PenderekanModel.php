@@ -64,4 +64,26 @@ class PenderekanModel extends Model
             ->orWhere(["bap.status_id" => 3])
             ->get()->getRowArray();
     }
+
+    public function search($keyword)
+    {
+        return $this->table($this->table)
+            ->select($this->fieldTable)
+            ->join('provinsi', 'provinsi.id = penderekan.provinsi_id', 'left')
+            ->join('kota', 'kota.id = penderekan.kota_id', 'left')
+            ->join('kecamatan', 'kota.id = penderekan.kecamatan_id', 'left')
+            ->join('kelurahan', 'kota.id = penderekan.kelurahan_id', 'left')
+            ->join('bap', 'bap.id = penderekan.bap_id')
+            ->join('unit_penindak', 'unit_penindak.id = bap.unit_id')
+            ->join('status_bap', 'status_bap.id = bap.status_id', 'left')
+            ->join('jenispenindakan', 'jenispenindakan.id = penderekan.penindakan_id', 'left')
+            ->join('klasifikasi_kendaraan', 'klasifikasi_kendaraan.id = penderekan.klasifikasi_id', 'left')
+            ->join('type_kendaraan', 'type_kendaraan.id = penderekan.kendaraan_id', 'left')
+            ->join('poolpenyimpanan', 'poolpenyimpanan.id = penderekan.pool_id', 'left')
+            ->join('ukpd', 'ukpd.id = penderekan.ukpd_id', 'left')
+            ->join('jenis_kendaraan', 'jenis_kendaraan.id = penderekan.jenis_kendaraan_id', 'left')
+            ->where(["bap.noBap" => $keyword])
+            ->orWhere(["nopol" => $keyword])
+            ->get()->getRowArray();
+    }
 }

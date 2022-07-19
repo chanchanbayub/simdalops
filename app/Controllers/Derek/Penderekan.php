@@ -54,7 +54,6 @@ class Penderekan extends BaseController
     {
         $now = date('Y-m-d');
         $penderekan = $this->penderekanModel->getPenderekan();
-        dd($penderekan);
         // dd($penderekan);
         // dd(session('unit_id'));
         $data = [
@@ -64,5 +63,17 @@ class Penderekan extends BaseController
         ];
 
         return view('derek/penderekan', $data);
+    }
+
+    public function search()
+    {
+        if ($this->request->isAJAX()) {
+
+            $keyword = $this->request->getVar('keyword');
+
+            $data = $this->penderekanModel->search($keyword);
+
+            return json_encode($data);
+        }
     }
 }

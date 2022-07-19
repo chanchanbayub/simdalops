@@ -48,14 +48,13 @@
                 </div>
             </form>
 
-            <!-- <div class="social-auth-links text-center mb-3">
-                <p>- ATAU -</p>
-                <a href="/register" class="btn btn-block btn-danger">
-                    <i class="fa fa-user"></i> Belum Punya Akun ?
-                </a>
-            </div> -->
             <div class="social-auth-links text-center mb-3">
-                <a href="/derek/dashboard" class="btn btn-block btn-danger">
+                <p>- ATAU -</p>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-search"></i> Cari Data</button>
+            </div>
+            <div class="social-auth-links text-center mb-3">
+                <p>- ATAU -</p>
+                <a class=" btn btn-block btn-danger">
                     <i class="fa fa-user"></i> Derek
                 </a>
             </div>
@@ -65,6 +64,51 @@
     </div>
 </div>
 <!-- /.login-box -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cari Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <?= csrf_field(); ?>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">No Register / No BAP / No Kendaraan:</label>
+                        <input type="text" class="form-control" id="keyword" name="keyword">
+                        <p>Contoh 00001 / B 1234 AB</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success search">Cari Data</button>
+                    </div>
+                </form>
+                <table class="table table-bordered" style="display: none; overflow: auto;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">No BAP</th>
+                            <th scope="col">Nama Pelanggar</th>
+                            <th scope="col">Alamat Pelanggar</th>
+                            <th scope="col">Nopol</th>
+                            <th scope="col">Lokasi Pelanggaran</th>
+                            <th scope="col">Pool Penyimpanan</th>
+                            <th scope="col">Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="show">
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script src="/assets/plugins/jquery/jquery.min.js"></script>
 <script>
     $("#loginForm").submit(function(e) {
@@ -135,5 +179,45 @@
             }
         });
     });
+
+    $(".search").click(function(e) {
+        e.preventDefault();
+        let keyword = $("#keyword").val();
+        $.ajax({
+            url: '/derek/search',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                keyword: keyword
+            },
+            beforeSend: function() {
+                $(".search").html('<i class="fas fa-cog fa-spin"></i>');
+            },
+            success: function(response) {
+                console.log(response);
+
+                $(".search").html('<i class="fa fa-search"></i> Cari Data');
+                if (response != null) {
+                    $('.table').css('display', 'inline-block');
+                    let table_data = '';
+
+                    table_data += `<tr> 
+                        <td> 1. </td>
+                        <td> ${response.noBap} </td>
+                        <td> ${response.nama_pelanggar} </td>
+                        <td> ${response.alamat_pelanggar} </td>
+                        <td> ${response.nopol} </td>
+                        <td> jl ${response.lokasi_pelanggaran} </td>
+                        <td> ${response.nama_terminal} </td>
+                        <td> <img src ='/foto-penindakan/${response.foto}' width='80px'></td>
+                    </tr>`;
+
+                    $("#show").html(table_data);
+                } else {
+                    alert('Data Tidak Ditemukan');
+                }
+            }
+        });
+    })
 </script>
 <?= $this->endSection(); ?>

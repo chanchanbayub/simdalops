@@ -170,6 +170,8 @@ $routes->post('/derek/getKelurahan', 'Derek\Bapderek::getKelurahan');
 $routes->post('/derek/save', 'Derek\Bapderek::save');
 
 $routes->get('/derek/penderekan', 'Derek\Penderekan::index');
+$routes->post('/derek/search', 'Derek\Penderekan::search');
+
 
 
 // kota
