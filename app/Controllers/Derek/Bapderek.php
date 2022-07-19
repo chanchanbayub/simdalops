@@ -255,7 +255,6 @@ class Bapderek extends BaseController
                 $kelurahan_id = $this->request->getVar('kelurahan_id');
                 $keterangan = $this->request->getVar('keterangan');
 
-                dd($bap_id);
                 $namaFoto = $foto->getRandomName();
 
                 $foto->move('foto-penindakan/', $namaFoto);
