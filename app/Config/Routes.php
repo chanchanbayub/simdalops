@@ -158,18 +158,18 @@ $routes->get('/petugas/laporanPenindakan/view/(:any)', 'Petugas\LaporanPenindaka
 
 
 // derek
-$routes->get('/derek/dashboard', 'derek\dashboard::index');
-$routes->get('/derek/bap', 'derek\BAPDerek::index');
-$routes->get('/derek/tambah_pendereken/(:num)', 'derek\BAPDerek::tambah_penderekan/$1');
-$routes->post('/derek/getPool', 'derek\BapDerek::getPool');
-$routes->post('/derek/getKlasifikasiKendaraan', 'derek\BapDerek::getKlasifikasiKendaraan');
-$routes->post('/derek/getTypeKendaraan', 'derek\BapDerek::getTypeKendaraan');
-$routes->post('/derek/getKota', 'derek\BapDerek::getKota');
-$routes->post('/derek/getKecamatan', 'derek\BapDerek::getKecamatan');
-$routes->post('/derek/getKelurahan', 'derek\BapDerek::getKelurahan');
-$routes->post('/derek/save', 'derek\BapDerek::save');
+$routes->get('/derek/dashboard', 'Derek\Dashboard::index');
+$routes->get('/derek/bap', 'Derek\BAPDerek::index');
+$routes->get('/derek/tambah_pendereken/(:num)', 'Derek\BAPDerek::tambah_penderekan/$1');
+$routes->post('/derek/getPool', 'Derek\BAPDerek::getPool');
+$routes->post('/derek/getKlasifikasiKendaraan', 'Derek\BAPDerek::getKlasifikasiKendaraan');
+$routes->post('/derek/getTypeKendaraan', 'Derek\BAPDerek::getTypeKendaraan');
+$routes->post('/derek/getKota', 'Derek\BAPDerek::getKota');
+$routes->post('/derek/getKecamatan', 'Derek\BAPDerek::getKecamatan');
+$routes->post('/derek/getKelurahan', 'derek\BAPDerek::getKelurahan');
+$routes->post('/derek/save', 'Derek\BAPDerek::save');
 
-$routes->get('/derek/penderekan', 'derek\penderekan::index');
+$routes->get('/derek/penderekan', 'Derek\Penderekan::index');
 
 
 // kota
