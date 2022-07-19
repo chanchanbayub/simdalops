@@ -57,7 +57,7 @@ class Bapderek extends BaseController
     public function index()
     {
         $bapDerek = $this->bapDerekModel->getBapDerek();
-        dd($bapDerek);
+        // dd($bapDerek);
         // dd($bapDerek);
         $data = [
             'title' => 'BAP Derek',
