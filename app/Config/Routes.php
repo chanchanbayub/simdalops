@@ -166,7 +166,7 @@ $routes->post('/derek/getKlasifikasiKendaraan', 'Derek\Bapderek::getKlasifikasiK
 $routes->post('/derek/getTypeKendaraan', 'Derek\Bapderek::getTypeKendaraan');
 $routes->post('/derek/getKota', 'Derek\Bapderek::getKota');
 $routes->post('/derek/getKecamatan', 'Derek\Bapderek::getKecamatan');
-$routes->post('/derek/getKelurahan', 'derek\Bapderek::getKelurahan');
+$routes->post('/derek/getKelurahan', 'Derek\Bapderek::getKelurahan');
 $routes->post('/derek/save', 'Derek\Bapderek::save');
 
 $routes->get('/derek/penderekan', 'Derek\Penderekan::index');
