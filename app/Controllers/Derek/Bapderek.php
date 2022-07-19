@@ -278,6 +278,7 @@ class Bapderek extends BaseController
                     'jam_penindakan' => date('H:i:s'),
                     'lokasi_pelanggaran' => ucwords($lokasi_pelanggaran),
                     'tanggal_masuk_bap' => date('Y-m-d'),
+                    'warna_kendaraan' => $warna_kendaraan,
                     'nama_pelanggar' => ucwords($nama_pelanggar),
                     'alamat_pelanggar' => ucwords($alamat_pelanggar),
                     'foto' => $namaFoto

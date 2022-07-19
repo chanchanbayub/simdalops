@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="warna_kendaraan">Warna Kendaraan :</label>
-                                            <input type="text" name="warna_kendaraan" id="warna_kendaraan" style="text-transform: uppercase;" placeholder="cth : putih, hitam" class="form-control">
+                                            <input type="text" name="warna_kendaraan" id="warna_kendaraan" style="text-transform: capitalize;" placeholder="cth : putih, hitam" class="form-control">
                                             <small class="text-danger" id="errorWarna"> </small>
                                         </div>
 
