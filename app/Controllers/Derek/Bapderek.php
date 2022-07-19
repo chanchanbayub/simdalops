@@ -69,7 +69,7 @@ class Bapderek extends BaseController
     public function tambah_penderekan($noBap)
     {
         $bap = $this->bapDerekModel->where(["noBap" => $noBap])->first();
-        $jenis_penindakan = $this->penindakanModel->where(['id' => 3])->first();
+        $jenis_penindakan = $this->penindakanModel->where(['id' => 4])->first();
         // dd($bap);
 
         $data = [
