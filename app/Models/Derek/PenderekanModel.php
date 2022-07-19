@@ -18,7 +18,7 @@ class PenderekanModel extends Model
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
 
-    protected $fieldTable = 'penderekan.id,penderekan.ukpd_id, bap_id, penderekan.penindakan_id, penderekan.jenis_kendaaraan_id ,penderekan.klasifikasi_id, penderekan.kendaraan_id, penderekan.tanggal_penindakan, penderekan.jam_penindakan, penderekan.tanggal_masuk_bap, penderekan.nopol, penderekan.provinsi_id, penderekan.kota_id, penderekan.kecamatan_id, penderekan.kelurahan_id, penderekan.lokasi_pelanggaran, penderekan.keterangan, penderekan.pool_id, penderekan.nama_pelanggar, penderekan.alamat_pelanggar, penderekan.warna_kendaraan, penderekan.foto, kota.kabupaten_kota, unit_penindak.unit_penindak, bap.noBap, bap.nama_petugas, type_kendaraan.type_kendaraan, poolpenyimpanan.nama_terminal';
+    protected $fieldTable = 'penderekan.id,penderekan.ukpd_id, bap_id, penderekan.penindakan_id, penderekan.jenis_kendaraan_id,penderekan.klasifikasi_id, penderekan.kendaraan_id, penderekan.tanggal_penindakan, penderekan.jam_penindakan, penderekan.tanggal_masuk_bap, penderekan.nopol, penderekan.provinsi_id, penderekan.kota_id, penderekan.kecamatan_id, penderekan.kelurahan_id, penderekan.lokasi_pelanggaran, penderekan.keterangan, penderekan.pool_id, penderekan.nama_pelanggar, penderekan.alamat_pelanggar, penderekan.warna_kendaraan, penderekan.foto, kota.kabupaten_kota, unit_penindak.unit_penindak, bap.noBap, bap.nama_petugas, type_kendaraan.type_kendaraan, poolpenyimpanan.nama_terminal';
 
     public function getPenderekan()
     {
@@ -36,6 +36,7 @@ class PenderekanModel extends Model
             ->join('type_kendaraan', 'type_kendaraan.id = penderekan.kendaraan_id', 'left')
             ->join('poolpenyimpanan', 'poolpenyimpanan.id = penderekan.pool_id', 'left')
             ->join('ukpd', 'ukpd.id = penderekan.ukpd_id', 'left')
+            ->join('jenis_kendaraan', 'jenis_kendaraan.id = penderekan.jenis_kendaraan_id', 'left')
             ->where(["bap.status_id" => 2])
             ->orWhere(["bap.status_id" => 3])
             ->get()->getResultArray();
@@ -58,6 +59,7 @@ class PenderekanModel extends Model
             ->join('type_kendaraan', 'type_kendaraan.id = penderekan.kendaraan_id', 'left')
             ->join('poolpenyimpanan', 'poolpenyimpanan.id = penderekan.pool_id', 'left')
             ->join('ukpd', 'ukpd.id = penderekan.ukpd_id', 'left')
+            ->join('jenis_kendaraan', 'jenis_kendaraan.id = penderekan.jenis_kendaraan_id', 'left')
             ->where(["bap.status_id" => 2])
             ->orWhere(["bap.status_id" => 3])
             ->get()->getRowArray();
