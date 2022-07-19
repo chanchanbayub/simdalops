@@ -156,6 +156,22 @@ $routes->post('/petugas/laporanPenindakan/hapus', 'Petugas\LaporanPenindakan::ha
 $routes->post('/petugas/laporanPenindakan/update', 'Petugas\LaporanPenindakan::update');
 $routes->get('/petugas/laporanPenindakan/view/(:any)', 'Petugas\LaporanPenindakan::view/$1');
 
+
+// derek
+$routes->get('/derek/dashboard', 'derek\dashboard::index');
+$routes->get('/derek/bap', 'derek\BAPDerek::index');
+$routes->get('/derek/tambah_pendereken/(:num)', 'derek\BAPDerek::tambah_penderekan/$1');
+$routes->post('/derek/getPool', 'derek\BapDerek::getPool');
+$routes->post('/derek/getKlasifikasiKendaraan', 'derek\BapDerek::getKlasifikasiKendaraan');
+$routes->post('/derek/getTypeKendaraan', 'derek\BapDerek::getTypeKendaraan');
+$routes->post('/derek/getKota', 'derek\BapDerek::getKota');
+$routes->post('/derek/getKecamatan', 'derek\BapDerek::getKecamatan');
+$routes->post('/derek/getKelurahan', 'derek\BapDerek::getKelurahan');
+$routes->post('/derek/save', 'derek\BapDerek::save');
+
+$routes->get('/derek/penderekan', 'derek\penderekan::index');
+
+
 // kota
 $routes->post('/petugas/laporanPenindakan/getKota', 'Petugas\LaporanPenindakan::getKota');
 $routes->post('/petugas/laporanPenindakan/getKecamatan', 'Petugas\LaporanPenindakan::getKecamatan');
@@ -226,6 +242,7 @@ $routes->get('cetak_surat/SKRD/(:any)', 'Pdf\PdfController::index/$1');
 $routes->get('surat_pengeluaran/(:num)', 'Pdf\PdfController::pengeluaran/$1');
 $routes->get('/lihat_gambar/(:num)', 'Pdf\PdfController::viewImage/$1');
 $routes->get('/bap/(:num)', 'Pdf\PdfController::bap/$1');
+$routes->get('/bap_derek/(:num)', 'Pdf\PdfController::bap_derek/$1');
 // End Pdf Controller
 // Excel Controller
 

@@ -4,6 +4,7 @@ namespace App\Controllers\Pdf;
 
 use App\Controllers\BaseController;
 use App\Controllers\Petugas\LaporanPenindakan;
+use App\Models\Derek\PenderekanModel;
 use App\Models\Kabid\ProfileModel;
 use App\Models\Operator\SuratPengeluaranModel;
 use App\Models\Petugas\LaporanPenindakanModel;
@@ -15,6 +16,7 @@ class PdfController extends BaseController
     protected $suratPengeluaran;
     protected $profileModel;
     protected $laporanPenindakanModel;
+    protected $penderekanModel;
 
     public function __construct()
     {
@@ -22,6 +24,7 @@ class PdfController extends BaseController
         $this->suratPengeluaran = new SuratPengeluaranModel();
         $this->profileModel = new ProfileModel();
         $this->laporanPenindakanModel = new LaporanPenindakanModel();
+        $this->penderekanModel = new PenderekanModel();
     }
 
     public function index($id)
@@ -90,6 +93,24 @@ class PdfController extends BaseController
 
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [210, 330]]);
         $html = view('/pdf/bap', $data);
+        $mpdf->WriteHTML($html);
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $mpdf->output('bap.pdf', 'I');
+    }
+
+    public function bap_derek($id)
+    {
+        $penderekan = $this->penderekanModel->idPenderekan($id);
+        // dd($penderekan);
+        // dd($dataPenindakan);
+        // $suratPengeluaran = $this->suratPengeluaran->getRowResult($id);
+
+        $data = [
+            'penderekan' => $penderekan
+        ];
+
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [210, 330]]);
+        $html = view('/pdf/bap_derek', $data);
         $mpdf->WriteHTML($html);
         $this->response->setHeader('Content-Type', 'application/pdf');
         $mpdf->output('bap.pdf', 'I');

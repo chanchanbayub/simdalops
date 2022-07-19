@@ -64,6 +64,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <?= $this->include('layout/sidebar_kabid'); ?>
         <?php elseif (session("role_management") == 'Pengandangan') : ?>
             <?= $this->include('layout/sidebar_pengandangan'); ?>
+        <?php elseif (!session("role_management")) : ?>
+            <?= $this->include('layout/sidebar_derek'); ?>
         <?php endif; ?>
         <?= $this->renderSection('content'); ?>
 
