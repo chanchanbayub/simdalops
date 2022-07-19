@@ -157,7 +157,7 @@
                                 <div class=" col-12">
                                     <div class="row">
                                         <div class="col-6 text-left">
-                                            <a href="/petugas/bap" class="btn btn-outline-success" type="reset"> <i class="fa fa-arrow-left"></i> Back</a>
+                                            <a href="/derek/bap" class="btn btn-outline-success" type="reset"> <i class="fa fa-arrow-left"></i> Back</a>
                                         </div>
                                         <div class="col-6 text-right">
                                             <button class="btn btn-outline-secondary save" type="submit"> <i class="fa fa-check"></i> Simpan </button>
