@@ -48,10 +48,15 @@
                 </div>
             </form>
 
-            <div class="social-auth-links text-center mb-3">
+            <!-- <div class="social-auth-links text-center mb-3">
                 <p>- ATAU -</p>
                 <a href="/register" class="btn btn-block btn-danger">
                     <i class="fa fa-user"></i> Belum Punya Akun ?
+                </a>
+            </div> -->
+            <div class="social-auth-links text-center mb-3">
+                <a href="/derek/dashboard" class="btn btn-block btn-danger">
+                    <i class="fa fa-user"></i> Derek
                 </a>
             </div>
 
