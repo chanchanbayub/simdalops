@@ -54,6 +54,7 @@ class Penderekan extends BaseController
     {
         $now = date('Y-m-d');
         $penderekan = $this->penderekanModel->getPenderekan();
+        dd($penderekan);
         // dd($penderekan);
         // dd(session('unit_id'));
         $data = [

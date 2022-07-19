@@ -42,7 +42,7 @@
                             <br>
                             <br>
                         </div>
-                        <h4 class="text-center">Unit / Regu : <?= session('unit_penindak') ?></h4>
+                        <h4 class="text-center">Unit / Regu : </h4>
                         <table id="example2" class="table  table-bordered table-responsive table-hover">
                             <thead>
                                 <tr align="center">
