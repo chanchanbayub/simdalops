@@ -28,9 +28,9 @@ class BapDerekModel extends Model
         return $this->table($this->table)
             ->select($this->fieldTable)
             ->where(["bap.jenis_bap_id" => 1])
-            ->join('unit_penindak', 'unit_penindak.id = bap.unit_id')
-            ->join('status_bap', 'status_bap.id = bap.status_id', 'left')
             ->where(["status_id" => 1])
+            ->join('unit_penindak', 'unit_penindak.id = bap.unit_id')
+            ->join('status_bap', 'status_bap.id = bap.status_id')
             ->get()->getResultArray();
     }
 }

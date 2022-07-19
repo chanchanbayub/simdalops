@@ -58,8 +58,9 @@
                             <tbody>
                                 <?php $no = 1; ?>
                                 <?php foreach ($penderekan as $penderekan) : ?>
+
                                     <tr>
-                                        <td style="vertical-align: middle;"></td>
+                                        <td style="vertical-align: middle;"> <?= $no++ ?></td>
                                         <td style="vertical-align: middle;"><?= $penderekan["unit_penindak"] ?></td>
                                         <td style="vertical-align: middle;"> <?= $penderekan["noBap"] ?></td>
                                         <td style="vertical-align: middle;"><?= $penderekan["nopol"] ?></td>

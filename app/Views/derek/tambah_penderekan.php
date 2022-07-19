@@ -417,7 +417,8 @@
         let jenis_kendaraan_id = $("#jenis_kendaraan_id").val();
         let klasifikasi_id = $("#klasifikasi_id").val();
         let kendaraan_id = $("#kendaraan_id").val();
-        let noBap = $("#bap_id").val();
+        let bap_id = $("#bap_id").val();
+        // console.log(noBap);
         let nopol = $("#nopol").val();
         let warna_kendaraan = $("#warna_kendaraan").val();
         let lokasi_pelanggaran = $("#lokasi_pelanggaran").val();
@@ -439,7 +440,7 @@
         formData.append('jenis_kendaraan_id', jenis_kendaraan_id);
         formData.append('klasifikasi_id', klasifikasi_id);
         formData.append('kendaraan_id', kendaraan_id);
-        formData.append('bap_id', noBap);
+        formData.append('bap_id', bap_id);
         formData.append('nopol', nopol);
         formData.append('warna_kendaraan', warna_kendaraan);
         formData.append('lokasi_pelanggaran', lokasi_pelanggaran);

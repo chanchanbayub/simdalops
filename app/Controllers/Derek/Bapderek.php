@@ -16,7 +16,6 @@ use App\Models\Admin\Provinsi;
 use App\Models\Admin\TypeKendaraanModel;
 use App\Models\Derek\BapDerekModel;
 use App\Models\Derek\PenderekanModel;
-use App\Models\Operator\BapModel;
 
 class Bapderek extends BaseController
 {
@@ -39,7 +38,7 @@ class Bapderek extends BaseController
     public function __construct()
     {
         $this->bapDerekModel = new BapDerekModel();
-        $this->bapModel = new BapModel();
+        $this->bapModel = new BapDerekModel();
         $this->validation = \Config\Services::validation();
         $this->klasifikasiKendaraanModel = new KendaraanModel();
         $this->JenisKendaraanModel = new JenisKendaraanModel();
@@ -57,8 +56,7 @@ class Bapderek extends BaseController
     public function index()
     {
         $bapDerek = $this->bapDerekModel->getBapDerek();
-        // dd($bapDerek);
-        // dd($bapDerek);
+
         $data = [
             'title' => 'BAP Derek',
             'bapDerek' => $bapDerek
@@ -257,9 +255,12 @@ class Bapderek extends BaseController
                 $kelurahan_id = $this->request->getVar('kelurahan_id');
                 $keterangan = $this->request->getVar('keterangan');
 
+                dd($bap_id);
                 $namaFoto = $foto->getRandomName();
 
                 $foto->move('foto-penindakan/', $namaFoto);
+
+
 
                 $this->penderekanModel->save([
                     'ukpd_id' => $ukpd_id,
