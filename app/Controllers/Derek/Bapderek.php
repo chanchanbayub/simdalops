@@ -20,7 +20,7 @@ use App\Models\Derek\PenderekanModel;
 class Bapderek extends BaseController
 {
     protected $bapDerekModel;
-    protected $bapModel;
+    // protected $bapModel;
     protected $provinsiModel;
     protected $kotaModel;
     protected $kecamtanModel;
@@ -38,7 +38,7 @@ class Bapderek extends BaseController
     public function __construct()
     {
         $this->bapDerekModel = new BapDerekModel();
-        $this->bapModel = new BapDerekModel();
+        // $this->bapModel = new BapDerekModel();
         $this->validation = \Config\Services::validation();
         $this->klasifikasiKendaraanModel = new KendaraanModel();
         $this->JenisKendaraanModel = new JenisKendaraanModel();
@@ -56,6 +56,7 @@ class Bapderek extends BaseController
     public function index()
     {
         $bapDerek = $this->bapDerekModel->getBapDerek();
+        // dd($bapDerek);
 
         $data = [
             'title' => 'BAP Derek',
@@ -285,7 +286,7 @@ class Bapderek extends BaseController
                     'foto' => $namaFoto
                 ]);
 
-                $this->bapModel->update($bap_id, [
+                $this->bapDerekModel->update($bap_id, [
                     'id' => $bap_id,
                     'status_id' => 2
                 ]);
