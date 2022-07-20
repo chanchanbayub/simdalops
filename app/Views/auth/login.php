@@ -54,7 +54,7 @@
             </div>
             <div class="social-auth-links text-center mb-3">
                 <p>- ATAU -</p>
-                <a class=" btn btn-block btn-danger">
+                <a href="/derek/dashboard" class=" btn btn-block btn-danger">
                     <i class="fa fa-user"></i> Derek
                 </a>
             </div>
