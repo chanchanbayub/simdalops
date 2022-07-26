@@ -214,7 +214,7 @@
 						Selaku Penyidik Pegawai Negeri Sipil (PPNS) dari kantor tersebut diatas, Bersama – sama dengan :
 					</p>
 					<p>1. <b class="output"> <?= $penderekan["nama_petugas"] ?></b></p>
-					<p>2. <b class="output"> <?= $penderekan["nama_petugas"] ?></b></p>
+					<p>2.</b></p>
 					<p>Masing – masing dari kantor yang sama, berdasarkan :-------------------------------------------------------------------------------------------------Surat Tugas nomor <b class="output">583</b> / <b class="output">1811</b> / <b class="output"> 231 </b> tanggal <b class="output"> 31 Juli 2022</b> tentang
 					<h2 class="output">PENDEREKAN</h2>
 					</p>
@@ -378,7 +378,7 @@
 			</tr>
 			<tr>
 				<td align="center">
-					<p class="output">(...................)</p>
+					<p class="output">(<?= $penderekan["nama_petugas"] ?>)</p>
 				</td>
 				<td align="center">
 					<p class="output">(<?= $penderekan["nama_petugas"] ?>)</p>
