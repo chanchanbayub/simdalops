@@ -84,11 +84,19 @@ class PdfController extends BaseController
     public function bap($id)
     {
         $dataPenindakan = $this->laporanPenindakanModel->getDataPenindakan($id);
-        // dd($dataPenindakan);
-        // $suratPengeluaran = $this->suratPengeluaran->getRowResult($id);
+        $hari_indonesia = array(
+            'Monday'  => 'Senin',
+            'Tuesday'  => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu',
+            'Sunday' => 'Minggu'
+        );
 
         $data = [
-            'penindakan' => $dataPenindakan
+            'penindakan' => $dataPenindakan,
+            'hari_indonesia' => $hari_indonesia
         ];
 
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [210, 330]]);
@@ -101,12 +109,19 @@ class PdfController extends BaseController
     public function bap_derek($id)
     {
         $penderekan = $this->penderekanModel->idPenderekan($id);
-        // dd($penderekan);
-        // dd($dataPenindakan);
-        // $suratPengeluaran = $this->suratPengeluaran->getRowResult($id);
+        $hari_indonesia = array(
+            'Monday'  => 'Senin',
+            'Tuesday'  => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu',
+            'Sunday' => 'Minggu'
+        );
 
         $data = [
-            'penderekan' => $penderekan
+            'penderekan' => $penderekan,
+            'hari_indonesia' => $hari_indonesia
         ];
 
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [210, 330]]);

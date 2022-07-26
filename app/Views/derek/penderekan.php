@@ -43,9 +43,9 @@
                             <br>
                         </div>
                         <h4 class="text-center">Unit / Regu : </h4>
-                        <table id="example2" class="table  table-bordered table-responsive table-hover">
+                        <table id="example2" class="table table-bordered  table-hover">
                             <thead>
-                                <tr align="center">
+                                <tr>
                                     <th>No </th>
                                     <th>Unit Penderekan</th>
                                     <th>No BAPC</th>
@@ -54,11 +54,11 @@
                                     <th>Warna Kendaran</th>
                                     <th>Foto Penindakan</th>
                                     <th>Aksi</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <?php $no = 1; ?>
                                 <?php foreach ($penderekan as $penderekan) : ?>
-
                                     <tr>
                                         <td style="vertical-align: middle;"> <?= $no++ ?></td>
                                         <td style="vertical-align: middle;"><?= $penderekan["unit_penindak"] ?></td>
@@ -67,7 +67,7 @@
                                         <td style="vertical-align: middle;"><?= $penderekan["type_kendaraan"] ?></td>
                                         <td style="vertical-align: middle;"><?= $penderekan["warna_kendaraan"] ?></td>
                                         <td style="vertical-align: middle;"><img src="/foto-penindakan/<?= $penderekan["foto"] ?>" alt="" width="80px" alt=""></td>
-                                        <td>
+                                        <td style="vertical-align: middle;">
                                             <a href="/bap_derek/<?= $penderekan["id"] ?>" class="btn btn-primary btn-xs btn-view">
                                                 <i class="fa fa-eye"></i>
                                             </a>

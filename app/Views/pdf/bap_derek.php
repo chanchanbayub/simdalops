@@ -208,7 +208,7 @@
 		<table class="content">
 			<tr>
 				<td>
-					<p>Pada hari ini <b class="output"> <?= strftime('%A', strtotime($penderekan["tanggal_penindakan"])) ?> </b>, tanggal <b class="output"> <?= date('d', strtotime($penderekan["tanggal_penindakan"]))  ?> </b> Bulan <b class="output"> <?= date('F', strtotime($penderekan["tanggal_penindakan"])) ?> </b> pukul <b class="output"> <?= $penderekan["jam_penindakan"] ?> </b> tahun <b class="output"> <?= date('Y', strtotime($penderekan["tanggal_penindakan"])) ?></b> <br>
+					<p>Pada hari ini <b class="output"><?= $hari_indonesia[date('l', strtotime($penderekan["tanggal_penindakan"]))] ?></b>, tanggal <b class="output"> <?= date('d', strtotime($penderekan["tanggal_penindakan"]))  ?> </b> Bulan <b class="output"> <?= date('F', strtotime($penderekan["tanggal_penindakan"])) ?> </b> pukul <b class="output"> <?= $penderekan["jam_penindakan"] ?> </b> tahun <b class="output"> <?= date('Y', strtotime($penderekan["tanggal_penindakan"])) ?></b> <br>
 						saya : <b class="output">Agus Ismail Kamil, S.sos. Msi</b>
 						Pangkat <b class="output"></b> NIP <b class="output"> 197808172007011032 </b> Jabatan <b class="output"> STAF TEKNIS </b>
 						Selaku Penyidik Pegawai Negeri Sipil (PPNS) dari kantor tersebut diatas, Bersama – sama dengan :
