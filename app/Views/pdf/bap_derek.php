@@ -381,10 +381,10 @@
 					<p class="output">(...................)</p>
 				</td>
 				<td align="center">
-					<p class="output">(<?= $penderekan["nama_pelanggar"] ?>)</p>
+					<p class="output">(<?= $penderekan["nama_petugas"] ?>)</p>
 				</td>
 				<td align="center">
-					<p class="output">(...................)</p>
+					<p class="output">(<?= $penderekan["nama_pelanggar"] ?>)</p>
 				</td>
 			</tr>
 		</table>
